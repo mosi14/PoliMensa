@@ -3,12 +3,17 @@ import { FaHome, FaEuroSign } from 'react-icons/fa';
 import { BsAlarm } from 'react-icons/bs';
 import { TbToolsKitchen2 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
+import { useLocation } from 'react-router-dom';
+
 
 function NavbarBottom() {
+
+    const location = useLocation();
+
     return (
         <Navbar bg="primary" variant="dark" fixed={'bottom'} className={'p-0'}>
             <Nav className={'m-auto'}>
-                <Nav.Link href="#home">
+                <Nav.Link href="/" active={ ['/'].includes(location.pathname) }>
                     <FaHome size={24}/>
                     <span>Home</span>
                 </Nav.Link>
