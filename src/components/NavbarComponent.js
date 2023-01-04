@@ -4,11 +4,16 @@ import { BsAlarm } from 'react-icons/bs';
 import { TbToolsKitchen2 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
+import {useEffect} from "react";
 
 
 function NavbarBottom() {
 
     const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <Navbar bg="primary" variant="dark" fixed={'bottom'} className={'p-0'}>
