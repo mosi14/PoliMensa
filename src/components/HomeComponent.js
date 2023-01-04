@@ -1,8 +1,12 @@
 import NavbarBottom from './NavbarComponent';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useNavigate } from "react-router-dom"
 
 function Home() {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <Container>
@@ -23,7 +27,7 @@ function Home() {
                 <h4 className={'text-center my-4'}>Choose your mail</h4>
                 <Row className={'justify-content-center my-5'}>
                     <Col sm={2} className={'d-flex justify-content-center'}>
-                        <Button size="lg">Lunch</Button>
+                        <Button size="lg" onClick={ () => navigate('/order/first') }>Lunch</Button>
                     </Col>
                     <Col sm={2} className={'d-flex justify-content-center'}>
                         <Button size="lg">Dinner</Button>
