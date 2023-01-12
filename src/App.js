@@ -9,6 +9,7 @@ import OrderChooseTime from "./components/OrderChooseTimeComponent";
 import OrderConfirm from "./components/OrderConfirmComponent";
 import OrderSummary from "./components/OrderSummaryComponent";
 import {useEffect} from "react";
+import UserProfile from './components/UserProfile';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/order/choose-time" element={<OrderChooseTime />}/>
           <Route path="/order/confirm" element={<OrderConfirm />}/>
           <Route path="/order/summary" element={<OrderSummary />}/>
+          <Route path="/profile" element={<UserProfile />}/>
         </Routes>
       </BrowserRouter>
   );
