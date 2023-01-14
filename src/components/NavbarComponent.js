@@ -26,7 +26,7 @@ function NavbarBottom() {
                     <BsAlarm size={24}/>
                     <span>Time</span>
                 </Nav.Link>
-                <Nav.Link href="#pricing">
+                <Nav.Link href="/top-up" active={ ['/top-up'].includes(location.pathname)}>
                     <FaEuroSign size={24}/>
                     <span>Wallet</span>
                 </Nav.Link>
