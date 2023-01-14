@@ -129,7 +129,7 @@ function OrderSecondPhase() {
                     </Card.Body>
                 </Card>
                 <Row className={'justify-content-center my-4'}>
-                    <Col sm={2}>
+                    <Col xs={2}>
                         <Button size="lg" onClick={ () => Next() }>Next</Button>
                     </Col>
                 </Row>

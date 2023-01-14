@@ -26,11 +26,15 @@ function Home() {
                 </Card>
                 <h4 className={'text-center my-4'}>Choose your mail</h4>
                 <Row className={'justify-content-center my-5'}>
-                    <Col sm={2} className={'d-flex justify-content-center'}>
-                        <Button size="lg" onClick={ () => navigate('/order/first') }>Lunch</Button>
-                    </Col>
-                    <Col sm={2} className={'d-flex justify-content-center'}>
-                        <Button size="lg">Dinner</Button>
+                    <Col sm={6}>
+                        <Row className={'justify-content-around'}>
+                            <Col xs={2} className={'d-flex justify-content-center'}>
+                                <Button size="lg" onClick={ () => navigate('/order/first') }>Lunch</Button>
+                            </Col>
+                            <Col xs={2} className={'d-flex justify-content-center'}>
+                                <Button size="lg">Dinner</Button>
+                            </Col>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
