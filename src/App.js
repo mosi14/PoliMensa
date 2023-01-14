@@ -13,6 +13,7 @@ import TopUp from "./components/TopUpComponent";
 import TopUpMethod from "./components/TopUpMethodComponent";
 import TopUpForum from "./components/TopUpFormComponent";
 import LastTransaction from "./components/LastTransactionComponent";
+import UserProfile from './components/UserProfile';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/top-up/methods" element={<TopUpMethod />}/>
           <Route path="/top-up/forum" element={<TopUpForum/>}/>
           <Route path="/top-up/last-transactions" element={<LastTransaction />}/>
+          <Route path="/profile" element={<UserProfile />}/>
         </Routes>
       </BrowserRouter>
   );

@@ -34,7 +34,7 @@ function NavbarBottom() {
                     <TbToolsKitchen2 size={24}/>
                     <span>Menu</span>
                 </Nav.Link>
-                <Nav.Link href="#pricing">
+                <Nav.Link href="/profile">
                     <CgProfile size={24}/>
                     <span>Profile</span>
                 </Nav.Link>
