@@ -87,16 +87,16 @@ function TopUpForum() {
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'mx-3'}>
-                        <Card className={'bg-primary align-items-center selectable-card'}>
+                        <Card className={'bg-light align-items-center selectable-card'}>
                             <Card.Body className={'p-4 text-center'}>
-                                <div className={'text-white h4'}>10</div>
+                                <div className={'h4'}>10</div>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'ms-3'}>
-                        <Card className={'bg-success align-items-center selectable-card'}>
+                        <Card className={'bg-light align-items-center selectable-card'}>
                             <Card.Body className={'p-4 text-center'}>
-                                <div className={'text-white h4'}>15</div>
+                                <div className={'h4'}>15</div>
                             </Card.Body>
                         </Card>
                     </Col>
