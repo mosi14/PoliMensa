@@ -14,13 +14,20 @@ import TopUpMethod from "./components/TopUpMethodComponent";
 import TopUpForum from "./components/TopUpFormComponent";
 import LastTransaction from "./components/LastTransactionComponent";
 import UserProfile from './components/UserProfile';
+import Menu from "./components/MenuComponent";
+import Welcome from "./components/WelcomeComponent";
+import Login from "./components/AuthComponent";
 
 function App() {
+
+
 
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/welcome" element={<Welcome />}/>
+          <Route path="/login" element={<Login />}/>
           <Route path="/order/first" element={<OrderFirstPhase />}/>
           <Route path="/order/second" element={<OrderSecondPhase />}/>
           <Route path="/order/third" element={<OrderThirdPhase />}/>
@@ -32,6 +39,7 @@ function App() {
           <Route path="/top-up/forum" element={<TopUpForum/>}/>
           <Route path="/top-up/last-transactions" element={<LastTransaction />}/>
           <Route path="/profile" element={<UserProfile />}/>
+          <Route path="/menu" element={<Menu />}/>
         </Routes>
       </BrowserRouter>
   );

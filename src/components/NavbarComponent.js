@@ -30,11 +30,11 @@ function NavbarBottom() {
                     <FaEuroSign size={24}/>
                     <span>Wallet</span>
                 </Nav.Link>
-                <Nav.Link href="#pricing">
+                <Nav.Link href="/menu" active={ ['/menu'].includes(location.pathname) }>
                     <TbToolsKitchen2 size={24}/>
                     <span>Menu</span>
                 </Nav.Link>
-                <Nav.Link href="/profile">
+                <Nav.Link href="/profile" active={ ['/profile'].includes(location.pathname) }>
                     <CgProfile size={24}/>
                     <span>Profile</span>
                 </Nav.Link>

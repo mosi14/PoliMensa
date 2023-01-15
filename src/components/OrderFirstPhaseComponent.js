@@ -72,7 +72,8 @@ function OrderFirstPhase() {
                                 <h4>Pasta Carbonara</h4>
                             </Col>
                             <Col>
-                                <img src="https://www.thespruceeats.com/thmb/IMCefeyo5_Rur7Rubauttz_rH58=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/pasta-carbonara-recipe-5210168-hero-01-80090e56abc04ca19d88ebf7fad1d157.jpg"
+                                <img
+                                    src="https://www.thespruceeats.com/thmb/IMCefeyo5_Rur7Rubauttz_rH58=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/pasta-carbonara-recipe-5210168-hero-01-80090e56abc04ca19d88ebf7fad1d157.jpg"
                                      alt="Pasta Carbonara"
                                     className="img-thumbnail"
                                      height={150} width={200}/>
