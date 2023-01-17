@@ -1,6 +1,4 @@
-import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import { AiOutlinePlus } from 'react-icons/ai';
+import {Button, Col, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 
 function Welcome() {
