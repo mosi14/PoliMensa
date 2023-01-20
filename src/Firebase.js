@@ -36,6 +36,8 @@ export const getFoods = async (type) => {
         })
     })
 
+    console.log(res);
+
     return res
 }
 
@@ -58,6 +60,11 @@ export const getUserLogin = async (studentNumber, password) => {
     })
 
     return user;
+}
+
+export const getUser = async (id) => {
+    const d = await getDoc( doc(getDb(), users, id) );
+    return d.data();
 }
 
 const app = initializeApp(firebaseConfig);

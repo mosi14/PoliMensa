@@ -74,3 +74,12 @@
 .non-selectable-button {
   cursor: none;
 }
+
+.alert-fixed {
+  position:fixed;
+  top: 10px;
+  left: 30%;
+  width: 50%;
+  z-index:9999;
+  border-radius:0px
+}

@@ -1,9 +1,9 @@
 import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import {useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {getFoods} from "../Firebase";
+import { getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 
 function OrderFirstPhase() {
@@ -13,6 +13,7 @@ function OrderFirstPhase() {
     const [chosenDish, setChosenDish] = useState('');
     const [foods, setFoods] = useState([]);
     const [loadFetchProcess, setLoadFetchProcess] = useState(true);
+    const [confirmModal, setConfirmModal] = useState(false);
 
     const backgroundColorClass = 'bg-primary';
 
@@ -31,7 +32,19 @@ function OrderFirstPhase() {
     }
 
     let Next = () => {
+
+        if ( chosenDish.trim() === '' )
+            setConfirmModal(true)
+        else
+            navigate('/order/second');
+    }
+
+    let Continue = () => {
         navigate('/order/second');
+    }
+
+    let handleClose = () => {
+        setConfirmModal(false);
     }
 
     let Back = () => {
@@ -87,6 +100,22 @@ function OrderFirstPhase() {
                         <Button size="lg" onClick={ () => Next() }>Next</Button>
                     </Col>
                 </Row>
+                <Modal show={ confirmModal } onHide={ handleClose }>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Modal</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>You have not chosen any food. If you want to skip this part press
+                        <b> Continue</b>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={ handleClose }>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={ () => { Continue() } }>
+                            Continue
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
             <NavbarBottom/>
         </>

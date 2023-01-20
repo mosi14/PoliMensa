@@ -37,9 +37,10 @@ function Login(props) {
             setPasswordError(false);
 
         getUserLogin(email, password).then((user) => {
-            props.setUser(user);
-            localStorage.setItem(user);
-            navigate('/');
+            // props.setUser(user);
+            localStorage.setItem('user', user.id);
+            console.log(localStorage.getItem('user'))
+            // navigate('/');
         }).catch((error) => {
             console.log(error);
         });

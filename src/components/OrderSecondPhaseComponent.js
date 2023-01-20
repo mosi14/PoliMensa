@@ -53,7 +53,7 @@ function OrderSecondPhase() {
                 </div>
                 <Row>
                     <Col className={'text-center'}>
-                        <span className={"dot bg-success"} />
+                        <span className={"dot bg-primary"} />
                         <p>First course</p>
                     </Col>
                     <Col className={'text-center'}>

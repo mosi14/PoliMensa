@@ -20,7 +20,7 @@ import Login from "./components/AuthComponent";
 import { onAuthStateChanged } from 'firebase/auth';
 import GlobalSpinner from './components/SpinnerComponent';
 
-import { auth } from './Firebase';
+import { getUser } from './Firebase';
 
 function App() {
 
@@ -28,30 +28,45 @@ function App() {
   const [loadAuthProcess, setLoadAuthProcess] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
 
-        const uid = userAuth.uid;
-        if (user === null) setUser(uid);
-      } else {
+    const userId = localStorage.getItem('user');
 
-        setUser(null);
-        console.log("user is logged out")
-      }
+    if (userId === null)
       setLoadAuthProcess(false);
-    });
+    else {
+      getUser(userId).then( (result) => {
+        if (result !== undefined)
+          setUser(result)
+        setLoadAuthProcess(false);
+      }).catch( (error) => {
+        console.log(error);
+      });
+    }
+    console.log(user);
+    // onAuthStateChanged(auth, (userAuth) => {
+    //   if (userAuth) {
+    //
+    //     const uid = userAuth.uid;
+    //     if (user === null) setUser(uid);
+    //   } else {
+    //
+    //     setUser(null);
+    //     console.log("user is logged out")
+    //   }
+    //   setLoadAuthProcess(false);
+    // });
   }, []);
 
   return (
       <BrowserRouter>
         <Routes>
           <Route path="/"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home/> : <Welcome/> )}/>
+                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Welcome/> )}/>
           {/*<Route path="/login"*/}
           {/*       element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home/> : <Login setUser={setUser} /> )}/>*/}
 
                  <Route path="/login"
-                 element={ <Login setUser={setUser} /> }/>
+                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Login setUser={setUser} /> ) }/>
           <Route path="/order/first"
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase/> : <Welcome/> )}/>
           <Route path="/order/second"
