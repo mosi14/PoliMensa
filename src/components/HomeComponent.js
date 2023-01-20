@@ -1,9 +1,9 @@
 import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Row, Alert} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 
-function Home() {
+function Home(props) {
 
     const navigate = useNavigate();
 
@@ -13,8 +13,11 @@ function Home() {
 
     return (
         <>
+            <Alert variant={'danger'} className={'alert-fixed'}>
+                GG
+            </Alert>
             <Container>
-                <h3 className={'text-center my-5'}>Hi Lucy</h3>
+                <h3 className={'text-center my-5'}>Hi { props.user.name }</h3>
                 <Card className={'bg-light m-5 py-5'}>
                     <Card.Body >
                         {/* <h3 className={'text-center'}>
