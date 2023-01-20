@@ -29,7 +29,7 @@ function OrderChooseTime() {
     }
 
     let Next = () => {
-        navigate('/order/confirm');
+        navigate('/order/choose-time/queue-number');
     }
 
     let Back = () => {
@@ -152,5 +152,7 @@ function OrderChooseTime() {
         </>
     );
 }
+
+
 
 export default OrderChooseTime;

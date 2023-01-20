@@ -101,6 +101,16 @@ function TopUpForum() {
                         </Card>
                     </Col>
                 </Row>
+                <Row className={'align-items-center mt-3'}> 
+                <Form  >
+                <Form.Group >
+                  <Form.Label className='m-auto'>Enter the amount of money</Form.Label>
+                  <Form.Control className='label-field' type='text'  placeholder='Enter the amount ' />
+                </Form.Group>
+              </Form>
+                </Row>
+
+
                 <Row className={'align-items-center mt-3'}>
                     <Col md={{ span: 3, offset: 2 }}>
                         <h3 className={'text-center'}>Credit card</h3>
@@ -191,7 +201,7 @@ function TopUpForum() {
                 </Row>
                 <Row className={'justify-content-center mt-5'}>
                     <Col sm={2} className={'text-center'}>
-                        <Button variant={'primary'} size={'lg'}>Pay</Button>
+                        <Button variant={'primary'} size={'lg'}>Confirm</Button>
                     </Col>
                 </Row>
             </Container>

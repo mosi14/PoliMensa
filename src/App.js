@@ -21,6 +21,8 @@ import { onAuthStateChanged } from 'firebase/auth';
 import GlobalSpinner from './components/SpinnerComponent';
 
 import { getUser } from './Firebase';
+import Result from './components/QueueNumber';
+import EditForm from './components/EditForm';
 
 function App() {
 
@@ -79,6 +81,7 @@ function App() {
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
           <Route path="/order/summary"
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
+          <Route path="/order/choose-time/queue-number" element={<Result />}/>
           <Route path="/top-up"
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
           <Route path="/top-up/methods"
@@ -89,6 +92,7 @@ function App() {
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <LastTransaction /> : <Welcome/> )}/>
           <Route path="/profile"
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <UserProfile /> : <Welcome/> )}/>
+          <Route path="/profile/edit" element={<EditForm />}/>
           <Route path="/menu"
                  element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Menu /> : <Welcome/> )}/>
         </Routes>
