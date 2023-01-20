@@ -4,8 +4,22 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import NavbarBottom from './NavbarComponent';
 import img from '../assets/user.webp'
 import { BsPerson  } from 'react-icons/bs';
+import { Next } from 'react-bootstrap/esm/PageItem';
+import { useNavigate } from "react-router-dom"
 
 export default function UserProfile() {
+
+  const navigate = useNavigate();
+
+  let Next = () => {
+    navigate('/top-up');
+}
+
+
+let Edit = () => {
+  navigate('/profile/edit');
+}
+
   return (
     <>
       <Container className="mt-5 fs-5 ">
@@ -20,7 +34,7 @@ export default function UserProfile() {
             </p>
             <div className={'text-center py-2'}>
               <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
-              <Button variant="light" className={'btn-special mb-2'}>
+              <Button variant="light" className={'btn-special mb-2'} onClick={()=>{Next()}}>
                 <AiOutlinePlus size={30} />
               </Button>
             </div>
@@ -50,9 +64,14 @@ export default function UserProfile() {
           <br />
         </Row>
         <div className="text-center mt-5">
-          <Button varient="primary" className="px-5">
-            Edit
-          </Button>
+          <Col>
+            <Button variant="primary" className="px-5" onClick={()=>Edit()}>
+              Edit
+            </Button>
+          </Col>
+         
+
+          
         </div>
       </Container>
       <NavbarBottom />

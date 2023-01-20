@@ -17,6 +17,8 @@ import UserProfile from './components/UserProfile';
 import Menu from "./components/MenuComponent";
 import Welcome from "./components/WelcomeComponent";
 import Login from "./components/AuthComponent";
+import Result from './components/QueueNumber';
+import EditForm from './components/EditForm';
 
 function App() {
 
@@ -34,11 +36,13 @@ function App() {
           <Route path="/order/choose-time" element={<OrderChooseTime />}/>
           <Route path="/order/confirm" element={<OrderConfirm />}/>
           <Route path="/order/summary" element={<OrderSummary />}/>
+          <Route path="/order/choose-time/queue-number" element={<Result />}/>
           <Route path="/top-up" element={<TopUp />}/>
           <Route path="/top-up/methods" element={<TopUpMethod />}/>
           <Route path="/top-up/forum" element={<TopUpForum/>}/>
           <Route path="/top-up/last-transactions" element={<LastTransaction />}/>
           <Route path="/profile" element={<UserProfile />}/>
+          <Route path="/profile/edit" element={<EditForm />}/>
           <Route path="/menu" element={<Menu />}/>
         </Routes>
       </BrowserRouter>

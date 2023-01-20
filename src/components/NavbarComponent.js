@@ -22,7 +22,7 @@ function NavbarBottom() {
                     <FaHome size={24}/>
                     <span>Home</span>
                 </Nav.Link>
-                <Nav.Link href="#features">
+                <Nav.Link href="/order/choose-time/queue-number" active={ ['/choose-time/queue-number'].includes(location.pathname)}>
                     <BsAlarm size={24}/>
                     <span>Time</span>
                 </Nav.Link>

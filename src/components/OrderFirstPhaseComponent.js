@@ -61,7 +61,7 @@ function OrderFirstPhase() {
                 </Row>
                 <Row>
                     <Col>
-                        <p className={'text-center'}>only choose one item</p>
+                        <p className={'text-center'}> choose only one item or skip </p>
                     </Col>
                 </Row>
                 <Card className={ chosenDish === dish1 ? selectedCard : card }

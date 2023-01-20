@@ -47,14 +47,13 @@ function TopUp() {
                 <Card className={'bg-light m-5 py-5'}>
                     <Card.Body>
                         <h3 className={'text-center'}>
-                            Your wallet
+                            The balance of your wallet:
                         </h3>
                         <div className={'text-center py-2'}>
                             <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
                         </div>
                     </Card.Body>
                 </Card>
-                <h4 className={'text-center my-4'}>Choose your mail</h4>
                 <Row className={'justify-content-center my-4'}>
                     <Col sm={12} md={6}>
                         <Button size="lg" className={'p-2 w-100'} onClick={ () => GoPaymentMethod() }>Top-up wallet</Button>
@@ -62,7 +61,7 @@ function TopUp() {
                 </Row>
                 <Row className={'justify-content-center my-4'}>
                     <Col sm={12} md={6}>
-                        <Button size="lg" className={'p-2 w-100'} onClick={ () => GoLastTransactions() }>Last transaction</Button>
+                        <Button size="lg" className={'p-2 w-100'} onClick={ () => GoLastTransactions() }>List of transactions</Button>
                     </Col>
                 </Row>
             </Container>

@@ -25,7 +25,7 @@ function OrderThirdPhase() {
     }
 
     let Next = () => {
-        navigate('/order/choose-time');
+        navigate('/order/summary');
     }
 
     let Back = () => {
