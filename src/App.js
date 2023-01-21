@@ -23,23 +23,26 @@ import GlobalSpinner from './components/SpinnerComponent';
 import { getUser } from './Firebase';
 import Result from './components/QueueNumber';
 import EditForm from './components/EditForm';
+import QueueNumber from "./components/QueueNumber";
 
 function App() {
 
   const [user, setUser] = useState(null);
-  const [loadAuthProcess, setLoadAuthProcess] = useState(true);
+  const [loadUserProcess, setLoadUserProcess] = useState(true);
 
   useEffect(() => {
 
-    const userId = localStorage.getItem('user');
+    // const userId = localStorage.getItem('user');
+    const userId = 'OqiNtPMpcMjZrd7Oels9';
 
-    if (userId === null)
-      setLoadAuthProcess(false);
-    else {
+    if ( user === null ) {
       getUser(userId).then( (result) => {
-        if (result !== undefined)
+        if (result !== undefined) {
+          result.id = userId;
           setUser(result)
-        setLoadAuthProcess(false);
+        }
+
+        setLoadUserProcess(false);
       }).catch( (error) => {
         console.log(error);
       });
@@ -62,39 +65,38 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Welcome/> )}/>
+          <Route path="/home"
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Welcome/> )}/>
           {/*<Route path="/login"*/}
           {/*       element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home/> : <Login setUser={setUser} /> )}/>*/}
-
-                 <Route path="/login"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Login setUser={setUser} /> ) }/>
+          <Route path="/"
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( <Welcome/> )}/>
           <Route path="/order/first"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase user={user}/> : <Welcome/> )}/>
           <Route path="/order/second"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderSecondPhase/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSecondPhase/> : <Welcome/> )}/>
           <Route path="/order/third"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderThirdPhase /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderThirdPhase /> : <Welcome/> )}/>
           <Route path="/order/choose-time"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime user={user}/> : <Welcome/> )}/>
           <Route path="/order/confirm"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
           <Route path="/order/summary"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
-          <Route path="/order/choose-time/queue-number" element={<Result />}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
+          <Route path="/order/choose-time/queue-number" element={<QueueNumber />}/>
           <Route path="/top-up"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
           <Route path="/top-up/methods"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <TopUpMethod /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpMethod /> : <Welcome/> )}/>
           <Route path="/top-up/forum"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <TopUpForum/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpForum/> : <Welcome/> )}/>
           <Route path="/top-up/last-transactions"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <LastTransaction /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <LastTransaction /> : <Welcome/> )}/>
           <Route path="/profile"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <UserProfile /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <UserProfile /> : <Welcome/> )}/>
           <Route path="/profile/edit" element={<EditForm />}/>
           <Route path="/menu"
-                 element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Menu /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Menu /> : <Welcome/> )}/>
         </Routes>
       </BrowserRouter>
   );

@@ -1,29 +1,35 @@
 import {Button, Col, Row} from "react-bootstrap";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import { GiKnifeFork } from 'react-icons/gi';
+import NavbarBottom, {TopNavbar} from "./NavbarComponent";
+
 
 function Welcome() {
 
     const navigate = useNavigate();
 
     let Go = () => {
-        navigate('/login');
+        navigate('/order/choose-time');
     }
 
     return (
         <>
-            <Row className={'mt-4 align-items-center bg-light'}
+            <TopNavbar/>
+            <Row className={'align-items-center bg-light'}
                  style={{
-                     height: '75vh'
+                     height: '65vh'
                  }}>
                 <Col className={'text-center'}>
+                    <GiKnifeFork size={40}/>
                     Welcome to PoliMensa
                 </Col>
             </Row>
             <Row className={'mt-4'}>
                 <Col className={'text-center'}>
-                    <Button onClick={ () => Go() } variant={'primary'}>Get Started</Button>
+                    <Button className={'bg-main'} onClick={ () => Go() } variant={'primary'}>Book time slot</Button>
                 </Col>
             </Row>
+            <NavbarBottom/>
         </>
     );
 }
