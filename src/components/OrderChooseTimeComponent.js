@@ -1,13 +1,11 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Alert, Button, Card, Col, Container, Row} from "react-bootstrap";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import {Component, useState} from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom"
 import {SelectableCard} from "./CardsComponents";
 import {BackArrow} from "./HomeComponent";
-import {getTimes, saveOrder} from "../Firebase";
+import {getTimes, getUser, saveOrder} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
-import {OrderFoodCard} from "./OrderFirstPhaseComponent";
 import {IoWarningOutline} from "react-icons/io5";
 
 function OrderChooseTime(props) {
@@ -43,10 +41,13 @@ function OrderChooseTime(props) {
         else {
             saveOrder(props.user, chosenTime)
                 .then( (response) => {
-                    console.log(response
-                    );
+
+                    props.setUser(null);
+                    navigate('/order/choose-time/queue-number');
+                })
+                .catch( () => {
+                    setShowAlert(true);
                 } );
-            navigate('/order/choose-time/queue-number');
         }
     }
 

@@ -95,7 +95,9 @@ export const saveOrder = async (user, timeId) => {
             studentId: user.studentId,
             surname: user.surname,
             order: {
-                timeId: timeId,
+                time: time.data().time_slot,
+                orderNumber: 35,
+                orderAhead: 34,
             }
         });
     } else

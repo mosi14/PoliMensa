@@ -16,12 +16,8 @@ import LastTransaction from "./components/LastTransactionComponent";
 import UserProfile from './components/UserProfile';
 import Menu from "./components/MenuComponent";
 import Welcome from "./components/WelcomeComponent";
-import Login from "./components/AuthComponent";
-import { onAuthStateChanged } from 'firebase/auth';
 import GlobalSpinner from './components/SpinnerComponent';
-
 import { getUser } from './Firebase';
-import Result from './components/QueueNumber';
 import EditForm from './components/EditForm';
 import QueueNumber from "./components/QueueNumber";
 
@@ -60,7 +56,7 @@ function App() {
     //   }
     //   setLoadAuthProcess(false);
     // });
-  }, []);
+  }, [user]);
 
   return (
       <BrowserRouter>
@@ -78,12 +74,12 @@ function App() {
           <Route path="/order/third"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderThirdPhase /> : <Welcome/> )}/>
           <Route path="/order/choose-time"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime user={user}/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime user={user} setUser={ setUser }/> : <Welcome/> )}/>
           <Route path="/order/confirm"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
           <Route path="/order/summary"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
-          <Route path="/order/choose-time/queue-number" element={<QueueNumber />}/>
+          <Route path="/order/choose-time/queue-number" element={  loadUserProcess ? <GlobalSpinner/> : ( user ? <QueueNumber user={user} /> : <Welcome/> )}/>
           <Route path="/top-up"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
           <Route path="/top-up/methods"
