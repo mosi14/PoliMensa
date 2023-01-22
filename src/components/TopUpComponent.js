@@ -28,7 +28,7 @@ function TopUp() {
     }
 
     let GoPaymentMethod = () => {
-        navigate('/top-up/methods');
+        navigate('/top-up/forum');
     }
 
     let GoLastTransactions = () => {

@@ -25,6 +25,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [loadUserProcess, setLoadUserProcess] = useState(true);
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
 
@@ -35,7 +36,14 @@ function App() {
       getUser(userId).then( (result) => {
         if (result !== undefined) {
           result.id = userId;
-          setUser(result)
+          setUser(result);
+          console.log(result);
+
+          if ( Object.keys(result.order).length === 0 ) {
+            setOrder(null)
+          } else {
+            setOrder(result.order)
+          }
         }
 
         setLoadUserProcess(false);
@@ -43,7 +51,7 @@ function App() {
         console.log(error);
       });
     }
-    console.log(user);
+
     // onAuthStateChanged(auth, (userAuth) => {
     //   if (userAuth) {
     //
@@ -62,11 +70,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/home"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Home user={user}/> : <Welcome/> )}/>
-          {/*<Route path="/login"*/}
-          {/*       element={ loadAuthProcess ? <GlobalSpinner/> : ( user ? <Home/> : <Login setUser={setUser} /> )}/>*/}
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home user={user} order={order}/> : <Welcome user={user}/> ) : '' ) }/>
           <Route path="/"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home user={user} order={order}/> : <Welcome user={user}/> ) : '' ) }/>
           <Route path="/order/first"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase user={user}/> : <Welcome/> )}/>
           <Route path="/order/second"
@@ -79,7 +85,8 @@ function App() {
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
           <Route path="/order/summary"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
-          <Route path="/order/choose-time/queue-number" element={  loadUserProcess ? <GlobalSpinner/> : ( user ? <QueueNumber user={user} /> : <Welcome/> )}/>
+          <Route path="/order/choose-time/queue-number"
+                 element={  loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <QueueNumber user={user} setUser={ setUser }/> : <Welcome/> ): '' )}/>
           <Route path="/top-up"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
           <Route path="/top-up/methods"
@@ -97,5 +104,6 @@ function App() {
       </BrowserRouter>
   );
 }
+
 
 export default App;

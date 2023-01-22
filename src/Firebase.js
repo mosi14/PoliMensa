@@ -95,13 +95,25 @@ export const saveOrder = async (user, timeId) => {
             studentId: user.studentId,
             surname: user.surname,
             order: {
-                time: time.data().time_slot,
+                time: timeId,
+                timeSlot: time.data().time_slot,
                 orderNumber: 35,
                 orderAhead: 34,
             }
         });
     } else
         return undefined;
+}
+
+export const cancelOrder = async (user) => {
+    return await setDoc(doc(getDb(), users, user.id), {
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        studentId: user.studentId,
+        surname: user.surname,
+        order: {}
+    });
 }
 
 const app = initializeApp(firebaseConfig);

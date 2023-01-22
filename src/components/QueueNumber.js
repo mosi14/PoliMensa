@@ -1,29 +1,36 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import { AiOutlinePlus } from 'react-icons/ai';
+import {Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
 import { FcOvertime } from 'react-icons/fc';
 import { FaPeopleArrows } from 'react-icons/fa';
+import { cancelOrder } from "../Firebase";
 
 function QueueNumber(props) {
 
-    console.log(props.user)
     const navigate = useNavigate();
     const [type, setType] = useState();
+    const [showChangeModal, setShowChangeModal] = useState(false);
 
-    let Next = () => {
+    let Cancel = () => {
 
-        if(type === "cancel"){
-            navigate('/');
-        }
-       
+        cancelOrder(props.user)
+            .then( (response) => {
+                props.setUser(null);
+            })
+            .catch( () => {
+                // setShowAlert(true);
+            } );
 
-        if(type === "edit"){
-            navigate('/order/choose-time');
-        }
-        
+    }
+
+    let CloseChangeTimeModal = () => {
+        setShowChangeModal(false)
+    }
+
+    let ChangeTime = () => {
+        navigate('/order/choose-time');
     }
 
     return (
@@ -61,7 +68,7 @@ function QueueNumber(props) {
                                                         Chosen time slot
                                                     </h6>
                                                     <h4>
-                                                        { props.user.order.time }
+                                                        { props.user.order.timeSlot }
                                                     </h4>
                                                 </div>
                                             </div>
@@ -89,23 +96,34 @@ function QueueNumber(props) {
                         </div>
                     </Card.Body>
                 </Card>
-                
                  <Row className={'justify-content-center my-4'}>
                     <Col sm={6} className={'text-center my-3'}>
-                        <Button variant={'danger'} size="lg" onClick={ () => { Next() } }>Cancel booking</Button>
+                        <Button variant={'danger'} size="lg" onClick={ () => { Cancel() } }>Cancel booking</Button>
                     </Col>
                     <Col sm={6} className={'text-center my-3'}>
-                        <Button className={'bg-main'} size="lg" onClick={ () => { Next() } }>Change time</Button>
+                        <Button className={'bg-main'} size="lg" onClick={ () => {
+                            setShowChangeModal(true)
+                        } }>Change time</Button>
                     </Col>
                 </Row>
             </Container>
+            <Modal show={showChangeModal} onHide={ () => CloseChangeTimeModal() }>
+                <Modal.Header className={'bg-main text-white'} closeButton>
+                    <Modal.Title>Change time</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure to change time ?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={ () => CloseChangeTimeModal() }>
+                        Close
+                    </Button>
+                    <Button className={'bg-main'} variant="primary" onClick={ () => ChangeTime() }>
+                        Change time
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <NavbarBottom/>
         </>
     );
-}
-
-function QueueCard(props) {
-
 }
 
 export default QueueNumber;

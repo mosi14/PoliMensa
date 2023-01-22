@@ -19,10 +19,6 @@ function NavbarBottom() {
     return (
         <Navbar variant="dark" fixed={'bottom'} className={'p-0 bg-main'}>
             <Nav className={'m-auto'}>
-                <Nav.Link href="/" active={ ['/'].includes(location.pathname) }>
-                    <FaHome size={24}/>
-                    <span>Home</span>
-                </Nav.Link>
                 <Nav.Link href="/order/choose-time/queue-number" active={ ['/choose-time/queue-number'].includes(location.pathname)}>
                     <BsAlarm size={24}/>
                     <span>Time</span>
@@ -30,6 +26,10 @@ function NavbarBottom() {
                 <Nav.Link href="/top-up" active={ ['/top-up'].includes(location.pathname)}>
                     <FaEuroSign size={24}/>
                     <span>Wallet</span>
+                </Nav.Link>
+                <Nav.Link href="/" active={ ['/'].includes(location.pathname) }>
+                    <FaHome size={24}/>
+                    <span>Home</span>
                 </Nav.Link>
                 <Nav.Link href="/menu" active={ ['/menu'].includes(location.pathname) }>
                     <TbToolsKitchen2 size={24}/>
@@ -54,7 +54,6 @@ export function TopNavbar() {
                         PoliMensa
                     </div>
                 </div>
-
             </Col>
         </Row>
     );

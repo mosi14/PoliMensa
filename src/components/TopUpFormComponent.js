@@ -1,9 +1,11 @@
 import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row, Form} from "react-bootstrap";
+import {Button, Card, Col, Container, Row, Form, Alert} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
-import {useState} from "react";
+import {BsEmojiSmile} from "react-icons/bs";
+import {useState, useEffect} from "react";
+import {BackArrow} from "./HomeComponent";
 
 function TopUpForum() {
 
@@ -14,14 +16,23 @@ function TopUpForum() {
     const [surname, setSurname] = useState('');
     const [cvc, setCvc] = useState('');
     const [expireDate, setExpireDate] = useState('');
+    const [amount, setAmount] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+
 
     let Back = () => {
-        navigate('/top-up/methods');
+        navigate('/top-up/');
     }
 
-    let GoPaymentMethod = () => {
-        navigate('/top-up/forum');
+    // let GoPaymentMethod = () => {
+    //     navigate('/top-up/forum');
+    // }
+
+
+    let  Next = () => {
+        navigate('/');
     }
+    
 
     let maskCardNumber = (event, value, caret) => {
         let caretPosition = caret;
@@ -69,32 +80,69 @@ function TopUpForum() {
         event.target.selectionStart = event.target.selectionEnd = caretPosition;
     }
 
+    let alert = '';
+
+    let alertShow = () =>{
+
+        setShowAlert(true);
+       
+    }
+
+    if (showAlert) {
+        console.log(showAlert);
+        alert =
+            <Alert key={'success'} variant={'success'} className={'alert-fixed mt-1 text-center align-items-center'}>
+                <BsEmojiSmile size={23}/>
+                  The payment has been successful!
+            </Alert>
+    
+    // const timer = setTimeout(() => {
+    //     setNextButton(true)
+    // }, 3000);
+    //   return () => clearTimeout(timer);
+    }
+
+    
+
+    
+
     return (
         <>
             <Container>
-                <div className={'mt-2'}>
+            {/* <div className={'mt-2'}>
                     <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
                         <MdOutlineArrowBackIosNew size={25}/>
                     </Button>
-                </div>
+                </div> */}
+                <Row>
+                    <Col xs={1}>
+                        <BackArrow back={ () => Back() }/>
+                    </Col>
+                    <Col xs={10}>
+                        { alert }
+                    </Col>
+                </Row>    
                 <h3 className={'text-center mb-4'}>Choose Amount</h3>
                 <Row className={'justify-content-center align-items-center mt-1'}>
                     <Col xs={'3'} md={'2'} className={'me-3'}>
-                        <Card className={'bg-primary align-items-center selectable-card'}>
+                        <Card className={'bg-primary align-items-center selectable-card'}
+                         onClick={ () => {setAmount(5)}}>
                             <Card.Body className={'p-4 text-center'}>
                                 <div className={'text-white h4'}>5</div>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'mx-3'}>
-                        <Card className={'bg-light align-items-center selectable-card'}>
+                        <Card className={'bg-light align-items-center selectable-card'}
+                         onClick={ () => {setAmount(10)}}>
                             <Card.Body className={'p-4 text-center'}>
                                 <div className={'h4'}>10</div>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'ms-3'}>
-                        <Card className={'bg-light align-items-center selectable-card'}>
+                        <Card className={'bg-light align-items-center selectable-card'}
+                        onClick={ () => {setAmount(15)}} >
                             <Card.Body className={'p-4 text-center'}>
                                 <div className={'h4'}>15</div>
                             </Card.Body>
@@ -105,7 +153,7 @@ function TopUpForum() {
                 <Form  >
                 <Form.Group >
                   <Form.Label className='m-auto'>Enter the amount of money</Form.Label>
-                  <Form.Control className='label-field' type='text'  placeholder='Enter the amount ' />
+                  <Form.Control className='label-field' type='text'  placeholder='Enter the amount' value={amount} onChange={(ev)=> {setAmount(ev.target.value)}} />
                 </Form.Group>
               </Form>
                 </Row>
@@ -201,7 +249,7 @@ function TopUpForum() {
                 </Row>
                 <Row className={'justify-content-center mt-5'}>
                     <Col sm={2} className={'text-center'}>
-                        <Button variant={'primary'} size={'lg'}>Confirm</Button>
+                        <Button variant={'primary'} size={'lg'} onClick={ () =>{ alertShow();}}>Confirm</Button>
                     </Col>
                 </Row>
             </Container>
