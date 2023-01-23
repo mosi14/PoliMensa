@@ -1,4 +1,4 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import {useEffect, useState} from "react";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { OrderFoodCard } from './OrderFirstPhaseComponent';
 import {getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
+import {BackArrow} from "./HomeComponent";
 
 function OrderThirdPhase() {
 
@@ -15,7 +16,7 @@ function OrderThirdPhase() {
     const [foods, setFoods] = useState([]);
     const [loadFetchProcess, setLoadFetchProcess] = useState(true);
 
-    const backgroundColorClass = 'bg-primary';
+    const backgroundColorClass = 'bg-main';
 
     useEffect(() => {
         getFoods(3).then((foodsAPI) => {
@@ -45,19 +46,18 @@ function OrderThirdPhase() {
         content = <><GlobalSpinner/></>
     } else {
         content = <>
+            <TopNavbar/>
                 <Container className={'main-container'}>
                     <div className={'mt-2'}>
-                        <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                            <MdOutlineArrowBackIosNew size={25}/>
-                        </Button>
+                        <BackArrow Back={ () => Back() }/>
                     </div>
                     <Row>
                         <Col className={'text-center'}>
-                            <span className={"dot bg-primary"} />
+                            <span className={"dot bg-main"} />
                             <p>First course</p>
                         </Col>
                         <Col className={'text-center'}>
-                            <span className={"dot bg-primary" }/>
+                            <span className={"dot bg-main" }/>
                             <p>Second course</p>
                         </Col>
                         <Col className={'text-center'}>
@@ -85,7 +85,7 @@ function OrderThirdPhase() {
                     }
                     <Row className={'justify-content-center my-4'}>
                         <Col sm={4} className={'text-center'}>
-                            <Button size="lg" onClick={ () => Next() }>Choose Time</Button>
+                            <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Next</Button>
                         </Col>
                     </Row>
                 </Container>

@@ -26,6 +26,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loadUserProcess, setLoadUserProcess] = useState(true);
   const [order, setOrder] = useState(null);
+  const [payed, setPayed] = useState(false);
 
   useEffect(() => {
 
@@ -70,9 +71,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/home"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home user={user} order={order}/> : <Welcome user={user}/> ) : '' ) }/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home payed={payed} user={user} order={order}/> : <Welcome payed={payed} user={user}/> ) : '' ) }/>
           <Route path="/"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home user={user} order={order}/> : <Welcome user={user}/> ) : '' ) }/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home payed={payed} user={user} order={order}/> : <Welcome payed={payed} user={user}/> ) : '' ) }/>
           <Route path="/order/first"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase user={user}/> : <Welcome/> )}/>
           <Route path="/order/second"
@@ -92,7 +93,7 @@ function App() {
           <Route path="/top-up/methods"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpMethod /> : <Welcome/> )}/>
           <Route path="/top-up/forum"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpForum/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpForum setPayed={setPayed}/> : <Welcome/> )}/>
           <Route path="/top-up/last-transactions"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <LastTransaction /> : <Welcome/> )}/>
           <Route path="/profile"
