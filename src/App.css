@@ -1,6 +1,23 @@
 /*body #root > div.container > div {*/
 /*  height: 100vh;*/
 /*}*/
+:root {
+  --main-color: #563d7c;
+}
+
+.bg-main {
+  color: white !important;
+  background-color: var(--main-color) !important;
+  border-color: var(--main-color) !important;
+}
+
+.color-main {
+  color: var(--main-color);
+}
+
+.border-main {
+  border: var(--main-color) solid 3px !important;
+}
 
 .main-container {
   margin-bottom: calc(100% - 90%);
@@ -20,6 +37,25 @@
 
 .selectable-card {
   cursor: pointer;
+  border: var(--main-color) solid 1px !important;
+  color: var(--main-color);
+  background-color: white;
+}
+
+.back-arrow {
+  /*background-color: var(--main-color) !important;*/
+  color: var(--main-color) !important;
+  cursor: pointer;
+}
+
+.border-violet {
+  border-color: violet !important;
+  border-width: 3px !important;
+}
+
+.selected-card {
+  color: white;
+  background-color: var(--main-color) !important;
 }
 
 .img-thumbnail {
@@ -76,10 +112,13 @@
 }
 
 .alert-fixed {
-  position:fixed;
-  top: 10px;
+  position:relative;
   left: 30%;
   width: 50%;
   z-index:9999;
-  border-radius:0px
+  /*border-radius:0px*/
+}
+
+.nav-link:hover {
+  color: var(--bs-nav-link-color) !important;
 }

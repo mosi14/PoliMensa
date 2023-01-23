@@ -1,10 +1,11 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import { Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
+import {BackArrow} from "./HomeComponent";
 
 function OrderFirstPhase() {
 
@@ -15,7 +16,7 @@ function OrderFirstPhase() {
     const [loadFetchProcess, setLoadFetchProcess] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
 
-    const backgroundColorClass = 'bg-primary';
+    const backgroundColorClass = 'bg-main';
 
     useEffect(() => {
         getFoods(1).then((foodsAPI) => {
@@ -57,11 +58,10 @@ function OrderFirstPhase() {
         content = <><GlobalSpinner/></>
     } else {
         content = <>
+            <TopNavbar/>
             <Container className={'main-container'}>
                 <div className={'mt-2'}>
-                    <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                        <MdOutlineArrowBackIosNew size={25}/>
-                    </Button>
+                    <BackArrow Back={ () => Back() }/>
                 </div>
                 <Row>
                     <Col className={'text-center'}>
@@ -97,7 +97,7 @@ function OrderFirstPhase() {
                 }
                 <Row className={'justify-content-center my-4'}>
                     <Col xs={2}>
-                        <Button size="lg" onClick={ () => Next() }>Next</Button>
+                        <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Next</Button>
                     </Col>
                 </Row>
                 <Modal show={ confirmModal } onHide={ handleClose }>

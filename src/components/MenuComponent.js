@@ -1,8 +1,9 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
+import {useState} from "react";
 
 function Menu() {
 
@@ -23,6 +24,8 @@ function Menu() {
 
     const date = dayText + ' ' + day + ' ' + monthText;
 
+    const [chosenTime, setChosenTime] = useState('time6');
+
     let Back = () => {
         navigate('/');
     }
@@ -35,17 +38,24 @@ function Menu() {
         navigate('/top-up/last-transactions');
     }
 
+    let ChooseTime = (time) => {
+        setChosenTime(time);
+    }
+
     return (
         <>
+            <TopNavbar/>
             <Container>
-                <div className={'my-2'}>
+                <div className={'my-1'}>
                     <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
                         <MdOutlineArrowBackIosNew size={25}/>
                     </Button>
                 </div>
                 <Row className={'w-100 overflow-auto flex-nowrap'}>
                     <Col>
-                        <Card className={'bg-primary text-white'}>
+                        <Card
+                            onClick={ () => ChooseTime('time1') }
+                            className={ chosenTime === 'time1' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     11
@@ -57,7 +67,9 @@ function Menu() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'bg-light'}>
+                        <Card
+                            onClick={ () => ChooseTime('time2') }
+                            className={chosenTime === 'time2' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     12
@@ -69,7 +81,9 @@ function Menu() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'bg-light'}>
+                        <Card
+                            onClick={ () => ChooseTime('time3') }
+                            className={chosenTime === 'time3' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     13
@@ -81,7 +95,9 @@ function Menu() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'bg-light'}>
+                        <Card
+                            onClick={ () => ChooseTime('time4') }
+                            className={chosenTime === 'time4' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     14
@@ -93,7 +109,9 @@ function Menu() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'bg-light'}>
+                        <Card
+                            onClick={ () => ChooseTime('time5') }
+                            className={chosenTime === 'time5' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     15
@@ -105,7 +123,9 @@ function Menu() {
                         </Card>
                     </Col>
                     <Col>
-                        <Card className={'bg-light'}>
+                        <Card
+                            onClick={ () => ChooseTime('time6') }
+                            className={chosenTime === 'time6' ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
                             <Card.Body>
                                 <h6 className={'text-center'}>
                                     16
@@ -116,20 +136,8 @@ function Menu() {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col>
-                        <Card className={'bg-light'}>
-                            <Card.Body>
-                                <h6 className={'text-center'}>
-                                    11
-                                </h6>
-                                <h6 className={'text-center'}>
-                                    Mon
-                                </h6>
-                            </Card.Body>
-                        </Card>
-                    </Col>
                 </Row>
-                <h5 className={'mt-5'}>First Course</h5>
+                <h5 className={'mt-2'}>First Course</h5>
                 <div className={'d-flex flex-row w-100 overflow-auto'}>
                     <FoodCardComponent
                         src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
@@ -139,7 +147,7 @@ function Menu() {
                         src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
                         text={'Pasta Carbonara'}
                     />
-                    <FoodCardComponent
+                    <FoodCardComponent food={'suggested'}
                         src={'https://statics.cucchiaio.it/content/cucchiaio/it/ricette/2019/12/spaghetti-al-pomodoro/jcr:content/header-par/image-single.img10.jpg/1576681061599.jpg'}
                         text={'Pasta  Pomodoro'}
                     />
@@ -147,7 +155,7 @@ function Menu() {
                         src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
                         text={'Pasta Carbonara'}
                     />
-                    <FoodCardComponent
+                    <FoodCardComponent food={'selected'}
                         src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
                         text={'Pasta Carbonara'}
                     />
@@ -158,12 +166,28 @@ function Menu() {
                         src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
                         text={'Pasta Carbonara'}
                     />
+                    <FoodCardComponent
+                        src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
+                        text={'Pasta Carbonara'}
+                    />
+                    <FoodCardComponent food={'selected'}
+                                       src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
+                                       text={'Pasta Carbonara'}
+                    />
                 </div>
                 <h5 className={'mt-2'}>Side Dish</h5>
-                <div className={'d-flex flex-row flex-nowrap'}>
+                <div className={'d-flex flex-row flex-nowrap mb-5'}>
                     <FoodCardComponent
                         src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
                         text={'Pasta Carbonara'}
+                    />
+                    <FoodCardComponent
+                        src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
+                        text={'Pasta Carbonara'}
+                    />
+                    <FoodCardComponent food={'selected'}
+                                       src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
+                                       text={'Pasta Carbonara'}
                     />
                 </div>
             </Container>
@@ -173,24 +197,40 @@ function Menu() {
 }
 
 function FoodCardComponent(props) {
-    return <Card className={'d-inline-block flex-shrink-0'}>
+
+    let card = 'd-inline-block flex-shrink-0 mx-1';
+    const selectedCard = 'd-inline-block flex-shrink-0 mx-1 border-main';
+    const suggestedCard = 'd-inline-block flex-shrink-0 mx-1 border-violet';
+
+    if ( props.food === 'selected' )
+
+        card = selectedCard;
+
+    else if ( props.food === 'suggested' )
+        card = suggestedCard;
+
+    return <Card className={ card }>
             <Card.Body className={'p-0'}>
                 <img alt={'Food'}
                      src={props.src}
-                     width={'100px'}
-                     height={'100px'}
+                     width={'150px'}
+                     height={'150px'}
                      className={'opacity-75'}
                      style={ {
                          borderRadius: '5%'
                      } }/>
-                <h6 className={'text-center text-white'}
-                    style={ {
-                        position: 'absolute',
-                        top: '25%',
-                    } }>
-                    { props.text }
-                </h6>
+
             </Card.Body>
+        <Card.Footer>
+            <h6 className={'text-center color-main'}
+                style={ {
+                    overflow: "hidden",
+
+                } }
+            >
+                { props.text }
+            </h6>
+        </Card.Footer>
         </Card>
 }
 

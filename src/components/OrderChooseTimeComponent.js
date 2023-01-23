@@ -1,156 +1,118 @@
-import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import {useState} from "react";
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
+import {Alert, Button, Card, Col, Container, Row} from "react-bootstrap";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom"
+import {SelectableCard} from "./CardsComponents";
+import {BackArrow} from "./HomeComponent";
+import {getTimes, getUser, saveOrder} from "../Firebase";
+import GlobalSpinner from "./SpinnerComponent";
+import {IoWarningOutline} from "react-icons/io5";
 
-function OrderChooseTime() {
-
-    const time1 = 'time-1';
-    const time2 = 'time-2';
-    const time3 = 'time-3';
-    const time4 = 'time-4';
-    const time5 = 'time-5';
-    const time6 = 'time-6';
-    const time7 = 'time-7';
+function OrderChooseTime(props) {
 
     const navigate = useNavigate();
 
-    const [chosenTime, setChosenTime] = useState('');
+    const [chosenTime, setChosenTime] = useState(null);
+    const [loadFetchProcess, setLoadFetchProcess] = useState(true);
+    const [times, setTimes] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
 
     const card = 'bg-light my-2 selectable-card';
-    const selectedCard = 'my-2 selectable-card border border-primary'
+    const selectedCard = 'my-2 selected-card'
 
     let selectTime = (id) => {
-        if (id !== time4 && id !== time5) {
             localStorage.setItem('chooseTime', id);
             setChosenTime(id);
-        }
     }
 
-    let Next = () => {
-        navigate('/order/choose-time/queue-number');
+    useState(function () {
+        getTimes(1).then((timesAPI) => {
+            setTimes(timesAPI);
+            setLoadFetchProcess(false);
+        }).catch((error) => {
+            console.log(error);
+        });
+    })
+
+    let Confirm = () => {
+
+        if (chosenTime === null)
+            setShowAlert(true);
+        else {
+            saveOrder(props.user, chosenTime)
+                .then( (response) => {
+
+                    props.setUser(null);
+                    navigate('/order/choose-time/queue-number');
+                })
+                .catch( () => {
+                    setShowAlert(true);
+                } );
+        }
     }
 
     let Back = () => {
         navigate('/order/third');
     }
 
-    return (
-        <>
+    let alert = '';
+
+    if (showAlert) {
+        alert =
+            <Alert key={'danger'} variant={'danger'} className={'alert-fixed mt-1 text-center align-items-center'}>
+                <IoWarningOutline size={23}/>
+                You have not chosen time slot!
+            </Alert>
+    }
+
+    let content;
+
+    if (loadFetchProcess) {
+        content = <><GlobalSpinner/></>
+    } else {
+        content = <>
+            <TopNavbar/>
             <Container className={'main-container'}>
-                <div className={'mt-2'}>
-                    <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                        <MdOutlineArrowBackIosNew size={25}/>
-                    </Button>
-                </div>
+                <Row>
+                    <Col xs={1}>
+                        <BackArrow back={ () => Back() }/>
+                    </Col>
+                    <Col xs={10}>
+                        { alert }
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <h2 className={'text-center'}>Choose Your Time</h2>
                     </Col>
                 </Row>
-                <Row className={'justify-content-center'}>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time1 ? selectedCard : card }
-                              onClick={ () => selectTime(time1) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col>
-                                        <h5>11:30</h5>
-                                        <h5>12:00</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time2 ? selectedCard : card }
-                              onClick={ () => selectTime(time2) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col>
-                                        <h5>12:00</h5>
-                                        <h5>12:30</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time3 ? selectedCard : card }
-                              onClick={ () => selectTime(time3) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col>
-                                        <h5>12:30</h5>
-                                        <h5>13:00</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time4 ? selectedCard : card }
-                              onClick={ () => selectTime(time4) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col className={'text-muted'}>
-                                        <h5>13:00</h5>
-                                        <h5>13:30</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time5 ? selectedCard : card }
-                              onClick={ () => selectTime(time5) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col className={'text-muted'}>
-                                        <h5>13:30</h5>
-                                        <h5>14:00</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time6 ? selectedCard : card }
-                              onClick={ () => selectTime(time6) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col>
-                                        <h5>14:00</h5>
-                                        <h5>14:30</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col sm={3}>
-                        <Card className={ chosenTime === time7 ? selectedCard : card }
-                              onClick={ () => selectTime(time7) }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center my-5'}>
-                                    <Col>
-                                        <h5>14:30</h5>
-                                        <h5>15:00</h5>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
+                <Row>
+                    <Col xs={{
+                        span: 10,
+                        offset: 1
+                    }}>
+                        <Row className={'justify-content-center'}>
+                            {
+                                times.map( (time) => {
+                                    return <SelectableCard chosenTime={chosenTime} selectTime={selectTime} time={time}
+                                                           selectedCard={selectedCard} card={card} text={time.time_slot}
+                                                           key={time.id}/>
+                                } )
+                            }
+                        </Row>
                     </Col>
                 </Row>
                 <Row className={'justify-content-center my-4'}>
                     <Col sm={4} className={'text-center'}>
-                        <Button size="lg" onClick={ () => Next() }>Confirm</Button>
+                        <Button size="lg" className={'bg-main'} onClick={ () => Confirm() }>Confirm</Button>
                     </Col>
                 </Row>
             </Container>
             <NavbarBottom/>
         </>
-    );
+    }
+
+    return (content);
 }
 
 

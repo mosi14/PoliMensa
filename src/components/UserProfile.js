@@ -1,9 +1,13 @@
 import React from 'react';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import {Container, Row, Col, Image, Button, Nav} from 'react-bootstrap';
 import { AiOutlinePlus } from 'react-icons/ai';
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import img from '../assets/user.webp'
-import { BsPerson  } from 'react-icons/bs';
+import { HiOutlineIdentification  } from 'react-icons/hi';
+import { FaUserGraduate  } from 'react-icons/fa';
+import { BsTelephoneFill  } from 'react-icons/bs';
+import { RiMoneyEuroCircleLine  } from 'react-icons/ri';
+import { MdAlternateEmail  } from 'react-icons/md';
 import { Next } from 'react-bootstrap/esm/PageItem';
 import { useNavigate } from "react-router-dom"
 
@@ -22,57 +26,70 @@ let Edit = () => {
 
   return (
     <>
-      <Container className="mt-5 fs-5 ">
-        <Row className="mt-5">
-          <Col xs={4}>
-            <Image src={img} width="150" height="150"></Image>
-            {/* <BsPerson size={150}/> */}
-          </Col>
-          <Col xs={8} className="text-center ">
-            <p>
-              <b>Hi Lucy</b>
-            </p>
-            <div className={'text-center py-2'}>
-              <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
-              <Button variant="light" className={'btn-special mb-2'} onClick={()=>{Next()}}>
-                <AiOutlinePlus size={30} />
-              </Button>
-            </div>
+      <TopNavbar/>
+      <Container>
+        <Row className="mt-5 text-center">
+          <Col xs={{
+            span: 8,
+            offset: 2
+          }}>
+            <Row>
+              <Col>
+                <Image src={'https://flxt.tmsimg.com/assets/587180_v9_bb.jpg'} width={'200px'} height={'200px'}/>
+              </Col>
+            </Row>
+            <Row className={'mt-2'}>
+              <Col>
+                <div className={'d-flex justify-content-center'}>
+                  <h3>Ana de Armas</h3>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button className={'bg-main'}>Edit</Button>
+              </Col>
+              <Col>
+                <Button variant={'primary'}>Change photo</Button>
+              </Col>
+            </Row>
+            <Row className={'mt-3'}>
+              <Col
+              xs={{
+                span: 8,
+                offset: 2
+              }}>
+                <Nav className={'d-flex flex-column'}>
+                  <Nav.Link>
+                    <div className="d-flex align-items-center">
+                      <HiOutlineIdentification size={30}/>
+                      <h6>s707001</h6>
+                    </div>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <div className="d-flex align-items-center">
+                      <BsTelephoneFill size={30}/>
+                      <h6>+39353511171</h6>
+                    </div>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <div className="d-flex align-items-center">
+                      <MdAlternateEmail size={30}/>
+                      <h6>s707001@polito.it</h6>
+                    </div>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <div className="d-flex align-items-center">
+                      <RiMoneyEuroCircleLine size={30}/>
+                      <h6>2.99</h6>
+                      <AiOutlinePlus size={30} />
+                    </div>
+                  </Nav.Link>
+                </Nav>
+              </Col>
+            </Row>
           </Col>
         </Row>
-
-        <Row className="mt-5">
-          <p className='my-3'>
-            <b>Name:</b> Lucy
-          </p>
-          <br />
-          <p className='my-3'>
-            <b>Surname:</b> Rossi
-          </p>
-          <br />
-          <p className='my-3'>
-            <b>Student Number:</b> 289892
-          </p>
-          <br />
-          <p className='my-3'>
-            <b>Phone Number: </b>3802890764
-          </p>
-          <br />
-          <p className='my-3'>
-            <b>Email: </b>Lucyrossi@gmail.com
-          </p>
-          <br />
-        </Row>
-        <div className="text-center mt-5">
-          <Col>
-            <Button variant="primary" className="px-5" onClick={()=>Edit()}>
-              Edit
-            </Button>
-          </Col>
-         
-
-          
-        </div>
       </Container>
       <NavbarBottom />
     </>

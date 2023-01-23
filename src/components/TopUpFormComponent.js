@@ -1,11 +1,13 @@
 import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row, Form} from "react-bootstrap";
+import {Button, Card, Col, Container, Row, Form, Alert} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
-import {useState} from "react";
+import {BsEmojiSmile} from "react-icons/bs";
+import {useState, useEffect} from "react";
+import {BackArrow} from "./HomeComponent";
 
-function TopUpForum() {
+function TopUpForum(props) {
 
     const navigate = useNavigate();
 
@@ -14,14 +16,23 @@ function TopUpForum() {
     const [surname, setSurname] = useState('');
     const [cvc, setCvc] = useState('');
     const [expireDate, setExpireDate] = useState('');
+    const [amount, setAmount] = useState(0);
+    const [showAlert, setShowAlert] = useState(false);
+
 
     let Back = () => {
-        navigate('/top-up/methods');
+        navigate('/top-up/');
     }
 
-    let GoPaymentMethod = () => {
-        navigate('/top-up/forum');
+    // let GoPaymentMethod = () => {
+    //     navigate('/top-up/forum');
+    // }
+
+
+    let  Next = () => {
+        navigate('/');
     }
+    
 
     let maskCardNumber = (event, value, caret) => {
         let caretPosition = caret;
@@ -69,49 +80,97 @@ function TopUpForum() {
         event.target.selectionStart = event.target.selectionEnd = caretPosition;
     }
 
+    let alert = '';
+
+    let alertShow = () =>{
+
+        setShowAlert(true);
+       
+    }
+
+    if (showAlert) {
+        alert =
+            <Alert key={'success'} variant={'success'} className={'alert-fixed mt-1 text-center align-items-center'}>
+                <BsEmojiSmile size={23}/>
+                  The payment has been successful!
+            </Alert>
+    }
+
+    let SelectAmount = (amount) => {
+        setAmount(amount)
+    }
+
+    let PaymentConfirm = () => {
+        props.setPayed(true);
+        setTimeout(function () {
+            props.setPayed(false);
+        }, 3000)
+        navigate('/');
+    }
+
+    const cardClass = 'bg-light align-items-center selectable-card';
+    const selectedCard = 'bg-main align-items-center selectable-card';
+
     return (
         <>
-            <Container>
-                <div className={'mt-2'}>
+            <Container style={{
+                height: '80vh'
+            }}>
+            {/* <div className={'mt-2'}>
                     <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
                         <MdOutlineArrowBackIosNew size={25}/>
                     </Button>
-                </div>
-                <h3 className={'text-center mb-4'}>Choose Amount</h3>
+                </div> */}
+                <Row>
+                    <Col xs={1}>
+                        <BackArrow back={ () => Back() }/>
+                    </Col>
+                    <Col xs={10}>
+                        { alert }
+                    </Col>
+                </Row>    
+                <h3 className={'text-center mb-3'}>Choose Amount</h3>
                 <Row className={'justify-content-center align-items-center mt-1'}>
                     <Col xs={'3'} md={'2'} className={'me-3'}>
-                        <Card className={'bg-primary align-items-center selectable-card'}>
+                        <Card className={ amount === 5 ? selectedCard : cardClass }
+                         onClick={ () => { SelectAmount(5) }}>
                             <Card.Body className={'p-4 text-center'}>
-                                <div className={'text-white h4'}>5</div>
+                                <div className={'h4'}>5</div>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'mx-3'}>
-                        <Card className={'bg-light align-items-center selectable-card'}>
+                        <Card className={ amount === 10 ? selectedCard : cardClass }
+                         onClick={ () => { SelectAmount(10) }}>
                             <Card.Body className={'p-4 text-center'}>
                                 <div className={'h4'}>10</div>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xs={'3'} md={'2'} className={'ms-3'}>
-                        <Card className={'bg-light align-items-center selectable-card'}>
+                        <Card className={ amount === 15 ? selectedCard : cardClass }
+                        onClick={ () => { SelectAmount(15) }} >
                             <Card.Body className={'p-4 text-center'}>
                                 <div className={'h4'}>15</div>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-                <Row className={'align-items-center mt-3'}> 
-                <Form  >
-                <Form.Group >
-                  <Form.Label className='m-auto'>Enter the amount of money</Form.Label>
-                  <Form.Control className='label-field' type='text'  placeholder='Enter the amount ' />
-                </Form.Group>
-              </Form>
+                <Row className={'align-items-center mt-1'}>
+                    <Col
+                        xs={{
+                            span: 6,
+                            offset: 3
+                        }}>
+                        <Form  >
+                            <Form.Group >
+                                <Form.Label className='m-auto'>Enter the amount of money</Form.Label>
+                                <Form.Control className='label-field' type='text'  placeholder='Enter the amount' value={amount} onChange={(ev)=> {setAmount(ev.target.value)}} />
+                            </Form.Group>
+                        </Form>
+                    </Col>
                 </Row>
-
-
-                <Row className={'align-items-center mt-3'}>
+                <Row className={'align-items-center mt-2'}>
                     <Col md={{ span: 3, offset: 2 }}>
                         <h3 className={'text-center'}>Credit card</h3>
                     </Col>
@@ -135,7 +194,7 @@ function TopUpForum() {
                         </Row>
                     </Col>
                 </Row>
-                <Row className={'justify-content-center mt-4'}>
+                <Row className={'justify-content-center mt-2'}>
                     <Col sm={6}>
                         <Form.Group controlId="cardNumber">
                             <Form.Label>Card Number</Form.Label>
@@ -199,9 +258,9 @@ function TopUpForum() {
                         </Row>
                     </Col>
                 </Row>
-                <Row className={'justify-content-center mt-5'}>
+                <Row className={'justify-content-center mt-2'}>
                     <Col sm={2} className={'text-center'}>
-                        <Button variant={'primary'} size={'lg'}>Confirm</Button>
+                        <Button className={'bg-main'} size={'lg'} onClick={ () =>{ PaymentConfirm() } }>Confirm</Button>
                     </Col>
                 </Row>
             </Container>

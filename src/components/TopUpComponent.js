@@ -1,8 +1,9 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
+import {BackArrow} from "./HomeComponent";
 
 function TopUp() {
 
@@ -28,7 +29,7 @@ function TopUp() {
     }
 
     let GoPaymentMethod = () => {
-        navigate('/top-up/methods');
+        navigate('/top-up/forum');
     }
 
     let GoLastTransactions = () => {
@@ -37,31 +38,37 @@ function TopUp() {
 
     return (
         <>
+            <TopNavbar/>
             <Container>
                 <div className={'mt-2'}>
-                    <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                        <MdOutlineArrowBackIosNew size={25}/>
-                    </Button>
+                    <BackArrow Back={ () => Back() }/>
                 </div>
                 <h3 className={'text-center my-2'}>{ date }</h3>
-                <Card className={'bg-light m-5 py-5'}>
-                    <Card.Body>
-                        <h3 className={'text-center'}>
-                            The balance of your wallet:
-                        </h3>
-                        <div className={'text-center py-2'}>
-                            <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
-                        </div>
-                    </Card.Body>
-                </Card>
-                <Row className={'justify-content-center my-4'}>
-                    <Col sm={12} md={6}>
-                        <Button size="lg" className={'p-2 w-100'} onClick={ () => GoPaymentMethod() }>Top-up wallet</Button>
+                <Row>
+                    <Col xs={{
+                        span: 6,
+                        offset: 3
+                    }}>
+                        <Card className={'bg-light m-5 py-5'}>
+                            <Card.Body>
+                                <h3 className={'text-center'}>
+                                    The balance of your wallet:
+                                </h3>
+                                <div className={'text-center py-2'}>
+                                    <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
+                                </div>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 </Row>
                 <Row className={'justify-content-center my-4'}>
                     <Col sm={12} md={6}>
-                        <Button size="lg" className={'p-2 w-100'} onClick={ () => GoLastTransactions() }>List of transactions</Button>
+                        <Button size="lg" className={'p-2 w-100 bg-main'} onClick={ () => GoPaymentMethod() }>Top-up wallet</Button>
+                    </Col>
+                </Row>
+                <Row className={'justify-content-center my-4'}>
+                    <Col sm={12} md={6}>
+                        <Button size="lg" className={'p-2 w-100 bg-main'} onClick={ () => GoLastTransactions() }>List of transactions</Button>
                     </Col>
                 </Row>
             </Container>

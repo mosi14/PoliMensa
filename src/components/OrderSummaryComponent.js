@@ -1,9 +1,10 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import {useState} from "react";
 import { useNavigate } from "react-router-dom"
 import {AiOutlinePlus} from "react-icons/ai";
+import {BackArrow} from "./HomeComponent";
 
 function OrderSummary() {
 
@@ -26,35 +27,23 @@ function OrderSummary() {
     }
 
     let Next = () => {
-        navigate('/');
+        navigate('/order/first');
     }
 
     let Back = () => {
-        navigate('/order/choose-time');
+        navigate('/order/third');
     }
 
     return (
         <>
+            <TopNavbar/>
             <Container className={'main-container'}>
-                <Row className={'mt-4'}>
+                <div className={'mt-2'}>
+                    <BackArrow Back={ () => Back() }/>
+                </div>
+                <Row className={'mt-1'}>
                     <Col>
-                        <h2 className={'text-center'}>Your order has been confirmed</h2>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <p className={'text-center'}>Estimation time: 11:45</p>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <div className={'text-center py-2'}>
-                            <p className={'d-inline'}>Your wallet balance:</p>
-                            <p className={'d-inline fs-6 mx-2'}>2.91&euro;</p>
-                            <Button variant="light" className={'mb-2'}>
-                                <AiOutlinePlus size={20}/>
-                            </Button>
-                        </div>
+                        <h2 className={'text-center'}>Summary</h2>
                     </Col>
                 </Row>
                 <Card className={ chosenDish === dish1 ? selectedCard : card }>
@@ -104,7 +93,7 @@ function OrderSummary() {
                 </Card>
                 <Row className={'justify-content-center my-4'}>
                     <Col sm={5} className={'text-center'}>
-                        <Button size="lg" onClick={ () => Next() }>Cancel</Button>
+                        <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Change order</Button>
                         <p>You can only cancel your order before 11:15</p>
                     </Col>
                 </Row>
