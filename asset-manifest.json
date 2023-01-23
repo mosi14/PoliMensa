@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/PoliMensa/static/css/main.9839e88b.css",
+    "main.js": "/PoliMensa/static/js/main.f2cddab0.js",
+    "static/js/787.c09240a4.chunk.js": "/PoliMensa/static/js/787.c09240a4.chunk.js",
+    "static/media/user.webp": "/PoliMensa/static/media/user.4ed00e33e21222c4cad4.webp",
+    "index.html": "/PoliMensa/index.html",
+    "main.9839e88b.css.map": "/PoliMensa/static/css/main.9839e88b.css.map",
+    "main.f2cddab0.js.map": "/PoliMensa/static/js/main.f2cddab0.js.map",
+    "787.c09240a4.chunk.js.map": "/PoliMensa/static/js/787.c09240a4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9839e88b.css",
+    "static/js/main.f2cddab0.js"
+  ]
+}
