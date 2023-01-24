@@ -8,7 +8,7 @@ import {getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {BackArrow} from "./HomeComponent";
 
-function OrderThirdPhase() {
+function OrderThirdPhase(props) {
 
     const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ function OrderThirdPhase() {
         content = <><GlobalSpinner/></>
     } else {
         content = <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
                 <Container className={'main-container'}>
                     <div className={'mt-2'}>
                         <BackArrow Back={ () => Back() }/>
@@ -89,7 +89,7 @@ function OrderThirdPhase() {
                         </Col>
                     </Row>
                 </Container>
-                <NavbarBottom/>
+                <NavbarBottom />
             </>
     }
 

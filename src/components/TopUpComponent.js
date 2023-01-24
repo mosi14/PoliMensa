@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
 import {BackArrow} from "./HomeComponent";
 
-function TopUp() {
+function TopUp(props) {
 
     const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ function TopUp() {
 
     return (
         <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Container>
                 <div className={'mt-2'}>
                     <BackArrow Back={ () => Back() }/>
@@ -55,7 +55,7 @@ function TopUp() {
                                     The balance of your wallet:
                                 </h3>
                                 <div className={'text-center py-2'}>
-                                    <p className={'d-inline fs-5 mt-4'}>2.91&euro;</p>
+                                    <p className={'d-inline fs-5 mt-4'}>{ props.user.money }&euro;</p>
                                 </div>
                             </Card.Body>
                         </Card>
@@ -72,7 +72,7 @@ function TopUp() {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     );
 }

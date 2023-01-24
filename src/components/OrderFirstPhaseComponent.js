@@ -7,7 +7,7 @@ import { getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {BackArrow} from "./HomeComponent";
 
-function OrderFirstPhase() {
+function OrderFirstPhase(props) {
 
     const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ function OrderFirstPhase() {
         content = <><GlobalSpinner/></>
     } else {
         content = <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Container className={'main-container'}>
                 <div className={'mt-2'}>
                     <BackArrow Back={ () => Back() }/>
@@ -117,7 +117,7 @@ function OrderFirstPhase() {
                     </Modal.Footer>
                 </Modal>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     }
 
@@ -126,7 +126,7 @@ function OrderFirstPhase() {
 
 export function OrderFoodCard(props) {
     const card = 'bg-light my-2 selectable-card';
-    const selectedCard = 'my-2 selectable-card border border-primary';
+    const selectedCard = 'my-2 selectable-card border bg-main';
 
     return (
         <Card className={ props.chosenDish === props.food.id ? selectedCard : card }

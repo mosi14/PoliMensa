@@ -4,8 +4,9 @@ import { BsAlarm } from 'react-icons/bs';
 import { TbToolsKitchen2 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {GiKnifeFork} from "react-icons/gi";
+import {RiMoneyEuroCircleLine} from "react-icons/ri";
 
 
 function NavbarBottom() {
@@ -44,9 +45,9 @@ function NavbarBottom() {
     );
 }
 
-export function TopNavbar() {
+export function TopNavbar(props) {
     return (
-        <Row className={'bg-main py-3 px-1'}>
+        <Row className={'bg-main py-3 px-1 w-100 top-navbar-ml-0'}>
             <Col>
                 <div className={'d-flex align-items-center'}>
                     <GiKnifeFork className={'me-2'} size={30}/>
@@ -54,6 +55,14 @@ export function TopNavbar() {
                         PoliMensa
                     </div>
                 </div>
+            </Col>
+            <Col>
+                <span className={'float-end'}>
+                    <div className={'d-flex align-items-center'}>
+                        <RiMoneyEuroCircleLine size={25} />
+                        <h6 className={'mb-0'}>{ props.user.money }</h6>
+                    </div>
+                </span>
             </Col>
         </Row>
     );

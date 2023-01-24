@@ -4,7 +4,7 @@ import { GiKnifeFork } from 'react-icons/gi';
 import NavbarBottom, {TopNavbar} from "./NavbarComponent";
 
 
-function Welcome() {
+function Welcome(props) {
 
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ function Welcome() {
 
     return (
         <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Row className={'align-items-center bg-light'}
                  style={{
                      height: '65vh'

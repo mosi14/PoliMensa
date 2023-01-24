@@ -1,9 +1,7 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row, Alert} from "react-bootstrap";
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
-import {MdOutlineArrowBackIosNew} from "react-icons/md";
-import {IoChevronBackCircleSharp} from "react-icons/io5";
+import {IoChevronBackCircleSharp, IoFastFood} from "react-icons/io5";
 import {IoIosPeople} from "react-icons/io";
 import {FcOvertime} from "react-icons/fc";
 import {BsEmojiSmile} from "react-icons/bs";
@@ -32,8 +30,8 @@ function Home(props) {
 
     return (
         <>
-            <TopNavbar/>
-            <Container>
+            <TopNavbar user={props.user}/>
+                <Container>
                 { alert }
                 <h3 className={'text-center my-3'}>Hi { props.user.name }</h3>
                 <Row>
@@ -89,13 +87,20 @@ function Home(props) {
                                             <Card.Body className={'text-center'}>
                                                 <div className={'d-flex align-items-center h-100'}>
                                                     <div className={'flex-grow-1'}>
-
+                                                        <IoFastFood size={35}/>
                                                         <h5>Your meals</h5>
-                                                        <ul>
-                                                            <li>Insalata</li>
-                                                            <li>Bianco</li>
-                                                            <li>Risotto</li>
-                                                        </ul>
+                                                        <div>
+                                                            <span>1)</span>
+                                                            <span>Insalata</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>2)</span>
+                                                            <span>Bianco</span>
+                                                        </div>
+                                                        <div>
+                                                            <span>3)</span>
+                                                            <span>Risotto</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </Card.Body>
@@ -115,7 +120,7 @@ function Home(props) {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     );
 }

@@ -71,7 +71,7 @@ function OrderChooseTime(props) {
         content = <><GlobalSpinner/></>
     } else {
         content = <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Container className={'main-container'}>
                 <Row>
                     <Col xs={1}>
@@ -108,7 +108,7 @@ function OrderChooseTime(props) {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     }
 

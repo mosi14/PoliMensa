@@ -6,6 +6,7 @@ import {MdOutlineArrowBackIosNew} from "react-icons/md";
 import {BsEmojiSmile} from "react-icons/bs";
 import {useState, useEffect} from "react";
 import {BackArrow} from "./HomeComponent";
+import {pay} from "../Firebase";
 
 function TopUpForum(props) {
 
@@ -101,6 +102,13 @@ function TopUpForum(props) {
     }
 
     let PaymentConfirm = () => {
+
+        pay(props.user, amount).then( () => {
+            props.setUser(null);
+        }).catch((error) => {
+            console.log(error);
+        })
+
         props.setPayed(true);
         setTimeout(function () {
             props.setPayed(false);

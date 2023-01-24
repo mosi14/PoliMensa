@@ -4,7 +4,7 @@ import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import {useState} from "react";
 import { useNavigate } from "react-router-dom"
 
-function OrderConfirm() {
+function OrderConfirm(props) {
 
     const dish1 = 'dish-1';
     const dish2 = 'dish-2';
@@ -101,7 +101,7 @@ function OrderConfirm() {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     );
 }

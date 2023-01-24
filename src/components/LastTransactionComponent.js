@@ -4,7 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
 import {MdOutlineArrowBackIosNew} from "react-icons/md";
 
-function LastTransaction() {
+function LastTransaction(props) {
 
     const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ function LastTransaction() {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     );
 }

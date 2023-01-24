@@ -1,4 +1,4 @@
-import NavbarBottom, {TopNavbar} from './NavbarComponent';
+import NavbarBottom, { TopNavbar } from './NavbarComponent';
 import {Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
@@ -14,15 +14,13 @@ function QueueNumber(props) {
     const [showChangeModal, setShowChangeModal] = useState(false);
 
     let Cancel = () => {
-
         cancelOrder(props.user)
             .then( (response) => {
                 props.setUser(null);
             })
             .catch( () => {
                 // setShowAlert(true);
-            } );
-
+            });
     }
 
     let CloseChangeTimeModal = () => {
@@ -35,7 +33,7 @@ function QueueNumber(props) {
 
     return (
         <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Container>
                 <Card className={'bg-light mt-5 py-5'} style={{ height: '55vh' }}>
                     <Card.Body>

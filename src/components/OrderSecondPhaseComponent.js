@@ -8,7 +8,7 @@ import {getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {BackArrow} from "./HomeComponent";
 
-function OrderSecondPhase() {
+function OrderSecondPhase(props) {
 
     const navigate = useNavigate();
 
@@ -89,7 +89,7 @@ function OrderSecondPhase() {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     }
 

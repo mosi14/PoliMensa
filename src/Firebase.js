@@ -94,6 +94,7 @@ export const saveOrder = async (user, timeId) => {
             phone: user.phone,
             studentId: user.studentId,
             surname: user.surname,
+            money: user.money,
             order: {
                 time: timeId,
                 timeSlot: time.data().time_slot,
@@ -112,7 +113,20 @@ export const cancelOrder = async (user) => {
         phone: user.phone,
         studentId: user.studentId,
         surname: user.surname,
+        money: user.money,
         order: {}
+    });
+}
+
+export const pay = async (user, amount) => {
+    return await setDoc(doc(getDb(), users, user.id), {
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        studentId: user.studentId,
+        surname: user.surname,
+        money: user.money + amount,
+        order: user.order,
     });
 }
 

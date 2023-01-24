@@ -11,7 +11,7 @@ import { MdAlternateEmail  } from 'react-icons/md';
 import { Next } from 'react-bootstrap/esm/PageItem';
 import { useNavigate } from "react-router-dom"
 
-export default function UserProfile() {
+export default function UserProfile(props) {
 
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ let Edit = () => {
 
   return (
     <>
-      <TopNavbar/>
+      <TopNavbar user={props.user}/>
       <Container>
         <Row className="mt-5 text-center">
           <Col xs={{
@@ -91,7 +91,7 @@ let Edit = () => {
           </Col>
         </Row>
       </Container>
-      <NavbarBottom />
+      <NavbarBottom/>
     </>
   );
 }

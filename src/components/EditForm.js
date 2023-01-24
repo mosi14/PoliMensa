@@ -63,7 +63,7 @@ function EditForm (){
                 </Col>
             </Row> */}
         </Container>
-        <NavbarBottom/>
+        <NavbarBottom />
     </>
 
 

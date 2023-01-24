@@ -122,3 +122,14 @@
 .nav-link:hover {
   color: var(--bs-nav-link-color) !important;
 }
+
+.top-navbar-ml-0 {
+  margin-left: 0 !important;
+}
+
+.overflow-three-dots {
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+
+}

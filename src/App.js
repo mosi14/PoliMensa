@@ -75,32 +75,35 @@ function App() {
           <Route path="/"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <Home payed={payed} user={user} order={order}/> : <Welcome payed={payed} user={user}/> ) : '' ) }/>
           <Route path="/order/first"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase user={user}/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderFirstPhase user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/order/second"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSecondPhase/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSecondPhase user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/order/third"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderThirdPhase /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderThirdPhase user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/order/choose-time"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime user={user} setUser={ setUser }/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderChooseTime user={user} setUser={ setUser }/> : <Welcome user={user}/> )}/>
           <Route path="/order/confirm"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderConfirm user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/order/summary"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSummary /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <OrderSummary user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/order/choose-time/queue-number"
-                 element={  loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <QueueNumber user={user} setUser={ setUser }/> : <Welcome/> ): '' )}/>
+                 element={  loadUserProcess ? <GlobalSpinner/> : ( user ? ( order ? <QueueNumber user={user} setUser={ setUser }/> : <Welcome user={user}/> ): '' )}/>
           <Route path="/top-up"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUp /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUp user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/top-up/methods"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpMethod /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpMethod user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/top-up/forum"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpForum setPayed={setPayed}/> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <TopUpForum setPayed={setPayed}
+                                                                                     user={user}
+                                                                                     setUser={ setUser }/> : <Welcome user={user}/> )}/>
+
           <Route path="/top-up/last-transactions"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <LastTransaction /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <LastTransaction user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/profile"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <UserProfile /> : <Welcome/> )}/>
-          <Route path="/profile/edit" element={<EditForm />}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <UserProfile user={user}/> : <Welcome user={user}/> )}/>
+          <Route path="/profile/edit" element={<EditForm user={user}/>}/>
           <Route path="/menu"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Menu /> : <Welcome/> )}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Menu user={user}/> : <Welcome user={user}/> )}/>
         </Routes>
       </BrowserRouter>
   );

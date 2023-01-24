@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import {AiOutlinePlus} from "react-icons/ai";
 import {BackArrow} from "./HomeComponent";
 
-function OrderSummary() {
+function OrderSummary(props) {
 
     const dish1 = 'dish-1';
     const dish2 = 'dish-2';
@@ -36,7 +36,7 @@ function OrderSummary() {
 
     return (
         <>
-            <TopNavbar/>
+            <TopNavbar user={props.user}/>
             <Container className={'main-container'}>
                 <div className={'mt-2'}>
                     <BackArrow Back={ () => Back() }/>
@@ -98,7 +98,7 @@ function OrderSummary() {
                     </Col>
                 </Row>
             </Container>
-            <NavbarBottom/>
+            <NavbarBottom />
         </>
     );
 }
