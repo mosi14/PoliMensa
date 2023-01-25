@@ -6,6 +6,7 @@ import { IoIosPeople } from 'react-icons/io';
 import { FcOvertime } from 'react-icons/fc';
 import { RxLapTimer } from 'react-icons/rx';
 import API from "../API";
+import {BackArrow} from "./HomeComponent";
 
 function QueueNumber(props) {
 
@@ -28,6 +29,10 @@ function QueueNumber(props) {
         setShowChangeModal(false)
     }
 
+    let Back = () => {
+        navigate('/');
+    }
+
     let CloseDeleteModal = () => {
         setShowDeleteModal(false)
     }
@@ -40,7 +45,10 @@ function QueueNumber(props) {
         <>
             <TopNavbar user={props.user}/>
             <Container className={'main-container'}>
-                <Card className={'bg-light mt-5 py-5'}
+                <div className={'mt-2'}>
+                    <BackArrow Back={ () => Back() }/>
+                </div>
+                <Card className={'bg-light mt-3 py-5'}
                 // style={{ height: '55vh' }}
                 >
                     <Card.Body>
