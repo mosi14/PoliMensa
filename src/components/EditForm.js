@@ -1,10 +1,10 @@
-import NavbarBottom from './NavbarComponent';
-import {Button, Card, Col, Container, Row, Form} from "react-bootstrap";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
+import {Button, Container, Form} from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
+import {BackArrow} from "./HomeComponent";
 
-function EditForm (){
+function EditForm (props){
 
     const navigate = useNavigate();
 
@@ -20,20 +20,19 @@ function EditForm (){
     }
 
     let Back = () => {
-        navigate('/order/profile');
+        navigate('/profile');
     }
 
     return( 
 
         <>
+            <TopNavbar user={props.user}/>
         <Container className={'main-container'}>
             <div className={'mt-2'}>
-                <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                    <MdOutlineArrowBackIosNew size={25}/>
-                </Button>
+                <BackArrow Back={ () => { Back() } } />
             </div>
             <Form>
-      <Form.Group className="mb-3" >
+      <Form.Group className="my-3" >
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(ev) => setEmail(ev.target.value)} />
       </Form.Group>
@@ -51,7 +50,7 @@ function EditForm (){
         <Form.Control type="text" placeholder="enter phone number" value={email} onChange={(ev) => setEmail(ev.target.value)} />
       </Form.Group>
       
-      <Button variant="primary" type="submit" onClick={()=> handleSubmit}>
+      <Button variant="primary" type="submit" className={'bg-main'} onClick={()=> handleSubmit}>
         Save
       </Button>
     </Form>

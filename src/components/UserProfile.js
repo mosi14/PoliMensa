@@ -2,34 +2,38 @@ import React from 'react';
 import {Container, Row, Col, Image, Button, Nav} from 'react-bootstrap';
 import { AiOutlinePlus } from 'react-icons/ai';
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
-import img from '../assets/user.webp'
 import { HiOutlineIdentification  } from 'react-icons/hi';
-import { FaUserGraduate  } from 'react-icons/fa';
 import { BsTelephoneFill  } from 'react-icons/bs';
 import { RiMoneyEuroCircleLine  } from 'react-icons/ri';
 import { MdAlternateEmail  } from 'react-icons/md';
-import { Next } from 'react-bootstrap/esm/PageItem';
 import { useNavigate } from "react-router-dom"
+import {BackArrow} from "./HomeComponent";
 
 export default function UserProfile(props) {
 
   const navigate = useNavigate();
 
-  let Next = () => {
-    navigate('/top-up');
+  let GoEdit = () => {
+    navigate('/profile/edit');
 }
 
 
-let Edit = () => {
-  navigate('/profile/edit');
-}
+  let Pay = () => {
+    navigate('/top-up/forum');
+  }
+
+  let Back = () => {
+    navigate('/');
+  }
+
 
   return (
     <>
       <TopNavbar user={props.user}/>
       <Container>
-        <Row className="mt-5 text-center">
-          <Col xs={{
+        <BackArrow Back={ () => { Back() } }/>
+        <Row className="mt-3 text-center">
+          <Col xs={12} md={{
             span: 8,
             offset: 2
           }}>
@@ -45,44 +49,44 @@ let Edit = () => {
                 </div>
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <Button className={'bg-main'}>Edit</Button>
+            <Row className={'justify-content-center'}>
+              <Col xs={4}>
+                <Button className={'bg-main'} onClick={ () => { GoEdit() } }>Edit</Button>
               </Col>
-              <Col>
-                <Button variant={'primary'}>Change photo</Button>
+              <Col xs={7} md={4}>
+                <Button className={'bg-main'} disabled={true}>Change photo</Button>
               </Col>
             </Row>
             <Row className={'mt-3'}>
               <Col
               xs={{
-                span: 8,
-                offset: 2
+                span: 6,
+                offset: 3
               }}>
                 <Nav className={'d-flex flex-column'}>
                   <Nav.Link>
                     <div className="d-flex align-items-center">
-                      <HiOutlineIdentification size={30}/>
-                      <h6>s707001</h6>
+                      <HiOutlineIdentification className={'me-2'} size={30}/>
+                      <h6 className={'m-0'}>{ props.user.studentid }</h6>
                     </div>
                   </Nav.Link>
                   <Nav.Link>
                     <div className="d-flex align-items-center">
-                      <BsTelephoneFill size={30}/>
-                      <h6>+39353511171</h6>
+                      <BsTelephoneFill className={'me-2'} size={30}/>
+                      <h6 className={'m-0'}>{ props.user.phone }</h6>
                     </div>
                   </Nav.Link>
                   <Nav.Link>
                     <div className="d-flex align-items-center">
-                      <MdAlternateEmail size={30}/>
-                      <h6>s707001@polito.it</h6>
+                      <MdAlternateEmail className={'me-2'} size={30}/>
+                      <h6 className={'m-0'}>s707001@polito.it</h6>
                     </div>
                   </Nav.Link>
                   <Nav.Link>
                     <div className="d-flex align-items-center">
-                      <RiMoneyEuroCircleLine size={30}/>
-                      <h6>2.99</h6>
-                      <AiOutlinePlus size={30} />
+                      <RiMoneyEuroCircleLine className={'me-2'} size={30}/>
+                      <h6 className={'my-0 me-2'}>{ props.user.money }</h6>
+                      <AiOutlinePlus size={30} onClick={ () => { Pay() } } />
                     </div>
                   </Nav.Link>
                 </Nav>

@@ -41,7 +41,7 @@ function Menu(props) {
         })
     }
 
-    useEffect(function () {
+    useEffect( () => {
         API.getFoods(null).then((foodsAPI) => {
             setFoods(foodsAPI);
             setLoadFetchProcess(false);
@@ -49,13 +49,14 @@ function Menu(props) {
             setLoadFetchProcess(true);
             console.log(error);
         });
-    })
+    }, []);
 
     const [chosenTime, setChosenTime] = useState('time' + today);
     const [headText, setHeadText] = useState('Suggested foods for today.');
     const [isToday, setIsToday] = useState(false);
 
     if ( chosenTime === 'time' + today && isToday === false ) {
+
         setIsToday(true)
     }
 
@@ -72,7 +73,6 @@ function Menu(props) {
     }
 
     let ChooseTime = (time) => {
-
         if ( time === 'time' + today )
             setHeadText('Suggested foods for today.')
         else
@@ -107,7 +107,7 @@ function Menu(props) {
                             return <Col key={index}><DayCard day={day.day}
                                                              month={day.month}
                                                              dayOfWeek={day.dayOfWeek}
-                                                             ChooseTime={ChooseTime}
+                                                             ChooseTime={  ChooseTime }
                                                              chosenTime={chosenTime}
                             /></Col>
 
@@ -119,7 +119,14 @@ function Menu(props) {
                     {
                         foods.map( ( food ) => {
 
-                            if (food.type === 1) {
+                            if ( chosenTime === 'time' + today && food.type === 1 ) {
+                                return <FoodCardComponent
+                                    key={food.id}
+                                    src={ food.url }
+                                    text={ food.title }
+                                    food={food}
+                                />
+                            } else if ( chosenTime !== 'time' + today && food.type === 4 ) {
                                 return <FoodCardComponent
                                     key={food.id}
                                     src={ food.url }
@@ -136,7 +143,14 @@ function Menu(props) {
                     {
                         foods.map( ( food ) => {
 
-                            if (food.type === 2) {
+                            if (chosenTime === 'time' + today && food.type === 2) {
+                                return <FoodCardComponent
+                                    key={food.id}
+                                    src={ food.url }
+                                    text={ food.title }
+                                    food={food}
+                                />
+                            } else if ( chosenTime !== 'time' + today && food.type === 1 ) {
                                 return <FoodCardComponent
                                     key={food.id}
                                     src={ food.url }
@@ -220,7 +234,7 @@ function FoodCardComponent(props) {
 function DayCard(props) {
     return (
         <Card
-            onClick={ () => props.ChooseTime('time' + props.day) }
+            onClick={ () => { props.ChooseTime('time' + props.day) } }
             className={props.chosenTime === 'time' + props.day ? 'selectable-card bg-main' : 'bg-light selectable-card'}>
             <Card.Body>
                 <h6 className={'text-center'}>
