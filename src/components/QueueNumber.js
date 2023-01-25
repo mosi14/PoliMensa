@@ -4,14 +4,12 @@ import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
 import { IoIosPeople } from 'react-icons/io';
 import { FcOvertime } from 'react-icons/fc';
-import { FaPeopleArrows } from 'react-icons/fa';
-import { cancelOrder } from "../Firebase";
+import { RxLapTimer } from 'react-icons/rx';
 import API from "../API";
 
 function QueueNumber(props) {
 
     const navigate = useNavigate();
-    const [type, setType] = useState();
     const [showChangeModal, setShowChangeModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -87,12 +85,12 @@ function QueueNumber(props) {
                                         <Card.Body className={'text-center'}>
                                             <div className={'d-flex align-items-center h-100'}>
                                                 <div className={'flex-grow-1'}>
-                                                    <FaPeopleArrows size={55}/>
+                                                    <RxLapTimer size={43}/>
                                                     <h6 className={'text-center'}>
-                                                        Number of people in the queue
+                                                        Expected time
                                                     </h6>
                                                     <h4>
-                                                        {   props.user.order.orderAhead }
+                                                        { '15min' }
                                                     </h4>
                                                 </div>
                                             </div>
