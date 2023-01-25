@@ -92,15 +92,15 @@ function Home(props) {
                                                         <h5>Your meals</h5>
                                                         <div>
                                                             <span>1)</span>
-                                                            <span>Insalata</span>
+                                                            <span>Chickpea Curry</span>
                                                         </div>
                                                         <div>
                                                             <span>2)</span>
-                                                            <span>Bianco</span>
+                                                            <span>Greek Quinoa Salad</span>
                                                         </div>
                                                         <div>
                                                             <span>3)</span>
-                                                            <span>Risotto</span>
+                                                            <span>Cabbage Soup</span>
                                                         </div>
                                                     </div>
                                                 </div>
