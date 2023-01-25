@@ -20,9 +20,14 @@ function Welcome(props) {
                      style={{
                          height: '65vh'
                      }}>
+                    <Col xs={12} className={'text-center'}>
+                        <GiKnifeFork className={'d-inline'} size={40}/>
+                        <h6 className={'d-inline'}>Welcome to PoliMensa</h6>
+                        <p className={'mt-2'}>This app is designed for the students of Politechnico di Torino to<br/>
+                            improve their experience in the University canteen.</p>
+                    </Col>
                     <Col className={'text-center'}>
-                        <GiKnifeFork size={40}/>
-                        Welcome to PoliMensa
+                        <p>To book a time slot click button below.</p>
                     </Col>
                 </Row>
                 <Row className={'mt-4'}>
