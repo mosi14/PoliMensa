@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import {BackArrow} from "./HomeComponent";
 import GlobalSpinner from "./SpinnerComponent";
 import API from "../API";
+import {MdStars} from "react-icons/md";
 
 function Menu(props) {
 
@@ -198,6 +199,14 @@ function FoodCardComponent(props) {
                          borderTopRightRadius:'5px',
                      }}
                      />
+                     <div className={'color-main'} style={{
+                        position: 'absolute',
+                         top: '5px',
+                         left: '5px',
+                     }
+                     }>
+                         { props.food.favorite ? <MdStars size={40} /> : '' }
+                     </div>
 
             </Card.Body>
         <Card.Footer>
