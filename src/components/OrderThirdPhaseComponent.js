@@ -21,6 +21,8 @@ function OrderThirdPhase(props) {
     const backgroundColorClass = 'bg-main';
 
     useEffect(() => {
+        sessionStorage.setItem('thirdDish', null);
+
         API.getFoods(3).then((foodsAPI) => {
             setFoods(foodsAPI);
             setLoadFetchProcess(false);
@@ -30,6 +32,8 @@ function OrderThirdPhase(props) {
     }, []);
 
     let selectCard = (id) => {
+        window.scrollTo(0, 100000000)
+
         sessionStorage.setItem('thirdDish', id);
         setChosenDish(id);
     }

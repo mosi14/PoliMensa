@@ -20,6 +20,8 @@ function OrderSecondPhase(props) {
     const backgroundColorClass = 'bg-main';
 
     useEffect(() => {
+        sessionStorage.setItem('secondDish', null);
+
         API.getFoods(2).then((foodsAPI) => {
             setFoods(foodsAPI);
             setLoadFetchProcess(false);
@@ -29,6 +31,8 @@ function OrderSecondPhase(props) {
     }, []);
 
     let selectCard = (id) => {
+        window.scrollTo(0, 100000000)
+
         sessionStorage.setItem('secondDish', id);
         setChosenDish(id);
     }

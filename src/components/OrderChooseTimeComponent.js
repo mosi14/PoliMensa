@@ -44,7 +44,7 @@ function OrderChooseTime(props) {
                 .then( (response) => {
 
                     props.setUser(null);
-                    navigate('/order/choose-time/queue-number');
+                    navigate('/');
                 })
                 .catch( () => {
                     setShowAlert(true);

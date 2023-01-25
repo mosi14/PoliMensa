@@ -33,7 +33,7 @@ function Home(props) {
             <TopNavbar user={props.user}/>
                 <Container className={'main-container'}>
                 { alert }
-                <h3 className={'text-center my-3'}>Hi { props.user.name }</h3>
+                <h3 className={'text-center my-3'}>Hi { props.user.name } { props.user.surname }</h3>
                 <Row>
                     <Col md={{
                         span: 8,

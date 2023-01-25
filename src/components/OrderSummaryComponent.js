@@ -1,10 +1,13 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom"
 import {AiOutlinePlus} from "react-icons/ai";
 import {BackArrow} from "./HomeComponent";
+import API from "../API";
+import GlobalSpinner from "./SpinnerComponent";
+import {OrderFoodCard} from "./OrderFirstPhaseComponent";
 
 function OrderSummary(props) {
 
@@ -30,6 +33,19 @@ function OrderSummary(props) {
         setConfirmModal(true);
     }
 
+    const [foods, setFoods] = useState([]);
+    const [loadFetchProcess, setLoadFetchProcess] = useState(false);
+
+    useEffect( () => {
+        API.getFoods(null).then((foodsAPI) => {
+            setFoods(foodsAPI);
+            setLoadFetchProcess(false);
+        }).catch((error) => {
+            setLoadFetchProcess(true);
+            console.log(error);
+        });
+    }, []);
+
     let GoHome = () => {
         navigate('/');
     }
@@ -42,8 +58,12 @@ function OrderSummary(props) {
         navigate('/order/first');
     }
 
-    return (
-        <>
+    let content, isChosen = false;
+
+    if (loadFetchProcess) {
+        content = <><GlobalSpinner/></>
+    } else {
+        content = <>
             <TopNavbar user={props.user}/>
             <Container className={'main-container'}>
                 <div className={'mt-2'}>
@@ -56,51 +76,35 @@ function OrderSummary(props) {
                 </Row>
                 <Row className={'justify-content-center'}>
                     <Col md={8}>
-                        <Card className={ chosenDish === dish1 ? selectedCard : card }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center'}>
-                                    <Col>
-                                        <h4>Vegetable In Oil</h4>
-                                    </Col>
-                                    <Col>
-                                        <img src={'https://www.acouplecooks.com/wp-content/uploads/2021/04/Vegetable-Oil-001.jpg'}
-                                             alt="Vegetable In Oil"
-                                             className="img-thumbnail"
-                                             height={150} width={200}/>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                        <Card className={ chosenDish === dish2 ? selectedCard : card }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center'}>
-                                    <Col>
-                                        <h4>French Fries</h4>
-                                    </Col>
-                                    <Col>
-                                        <img src={'https://images.immediate.co.uk/production/volatile/sites/30/2021/03/French-fries-b9e3e0c.jpg?resize=768,574'}
-                                             alt="French Fries"
-                                             className="img-thumbnail"
-                                             height={150} width={200}/>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                        <Card className={ chosenDish === dish3 ? selectedCard : card }>
-                            <Card.Body className={'p-2'}>
-                                <Row className={'align-items-center text-center'}>
-                                    <Col>
-                                        <h4>Green Beans</h4>
-                                    </Col>
-                                    <Col>
-                                        <img src={'https://static.onecms.io/wp-content/uploads/sites/43/2022/03/11/230103-ButteryGarlicGreenBeans_9957.jpg'}
-                                             alt="Green Beans"
-                                             className="img-thumbnail"
-                                             height={150} width={200}/>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
+                        {
+                            foods.map( (food) => {
+
+                                const firstDish = sessionStorage.getItem('firstDish');
+                                const secondDish = sessionStorage.getItem('secondDish');
+                                const thirdDish = sessionStorage.getItem('thirdDish');
+
+                                if (food.id == firstDish || food.id == secondDish || food.id == thirdDish) {
+                                    isChosen = true;
+                                    return <Card className={ chosenDish === dish1 ? selectedCard : card }>
+                                        <Card.Body className={'p-2'}>
+                                            <Row className={'align-items-center text-center'}>
+                                                <Col>
+                                                    <h4>{ food.title }</h4>
+                                                </Col>
+                                                <Col>
+                                                    <img src={ food.url }
+                                                         alt={ food.title }
+                                                         className="img-thumbnail"
+                                                         height={150} width={200}/>
+                                                </Col>
+                                            </Row>
+                                        </Card.Body>
+                                    </Card>
+                                }
+
+                            } )
+                        }
+                        { isChosen ?  "" : <><h4 className={'text-center my-3'}>No food has been chosen.</h4><h6 className={'text-center'}>If you would like to choose click <span className={'fst-italic'}>CHANGE</span></h6></> }
                     </Col>
                 </Row>
                 <Row className={'justify-content-center my-4'}>
@@ -129,7 +133,8 @@ function OrderSummary(props) {
             </Modal>
             <NavbarBottom />
         </>
-    );
+    }
+    return (content);
 }
 
 export default OrderSummary;
