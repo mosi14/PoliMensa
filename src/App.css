@@ -5,6 +5,8 @@
   --main-color: #563d7c;
 }
 
+
+
 .bg-main {
   color: white !important;
   background-color: var(--main-color) !important;
@@ -132,4 +134,10 @@
   overflow: hidden !important;
   white-space: nowrap !important;
 
+}
+
+@media ( max-width: 768px ) {
+  .xs-mt {
+    margin-top: 0.4rem !important;
+  }
 }

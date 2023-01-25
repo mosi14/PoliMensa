@@ -1,8 +1,6 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
-import {MdOutlineArrowBackIosNew} from "react-icons/md";
 import {BackArrow} from "./HomeComponent";
 
 function TopUp(props) {
@@ -20,7 +18,6 @@ function TopUp(props) {
     const day = today.getDate();
     const month = today.getMonth();
     const monthText = months[month];
-    // const dayText = daysOfWeek[dayNumber];
 
     const date = dayText + ' ' + day + ' ' + monthText;
 
@@ -39,16 +36,18 @@ function TopUp(props) {
     return (
         <>
             <TopNavbar user={props.user}/>
-            <Container>
+            <Container className={'main-container'}>
                 <div className={'mt-2'}>
                     <BackArrow Back={ () => Back() }/>
                 </div>
                 <h3 className={'text-center my-2'}>{ date }</h3>
                 <Row>
-                    <Col xs={{
-                        span: 6,
-                        offset: 3
-                    }}>
+                    <Col
+                        lg={{
+                            span: 6,
+                            offset: 3
+                        }}
+                        xs={12}>
                         <Card className={'bg-light m-5 py-5'}>
                             <Card.Body>
                                 <h3 className={'text-center'}>

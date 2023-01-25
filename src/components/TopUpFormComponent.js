@@ -1,12 +1,10 @@
-import NavbarBottom from './NavbarComponent';
+import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Row, Form, Alert} from "react-bootstrap";
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom"
-import {MdOutlineArrowBackIosNew} from "react-icons/md";
 import {BsEmojiSmile} from "react-icons/bs";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {BackArrow} from "./HomeComponent";
-import {pay} from "../Firebase";
+import API from "../API";
 
 function TopUpForum(props) {
 
@@ -24,16 +22,6 @@ function TopUpForum(props) {
     let Back = () => {
         navigate('/top-up/');
     }
-
-    // let GoPaymentMethod = () => {
-    //     navigate('/top-up/forum');
-    // }
-
-
-    let  Next = () => {
-        navigate('/');
-    }
-    
 
     let maskCardNumber = (event, value, caret) => {
         let caretPosition = caret;
@@ -103,7 +91,7 @@ function TopUpForum(props) {
 
     let PaymentConfirm = () => {
 
-        pay(props.user, amount).then( () => {
+        API.pay(props.user, amount).then( () => {
             props.setUser(null);
         }).catch((error) => {
             console.log(error);
@@ -121,17 +109,16 @@ function TopUpForum(props) {
 
     return (
         <>
-            <Container style={{
-                height: '80vh'
-            }}>
-            {/* <div className={'mt-2'}>
-                    <Button variant={'light'} className={'rounded-circle'} onClick={ () => Back() }>
-                        <MdOutlineArrowBackIosNew size={25}/>
-                    </Button>
-                </div> */}
+            <TopNavbar user={props.user}/>
+            <Container
+                className={'main-container'}
+            //     style={{
+            //     height: '90vh'
+            // }}
+            >
                 <Row>
                     <Col xs={1}>
-                        <BackArrow back={ () => Back() }/>
+                        <BackArrow Back={ () => Back() }/>
                     </Col>
                     <Col xs={10}>
                         { alert }
@@ -142,7 +129,7 @@ function TopUpForum(props) {
                     <Col xs={'3'} md={'2'} className={'me-3'}>
                         <Card className={ amount === 5 ? selectedCard : cardClass }
                          onClick={ () => { SelectAmount(5) }}>
-                            <Card.Body className={'p-4 text-center'}>
+                            <Card.Body className={'px-0 text-center'}>
                                 <div className={'h4'}>5</div>
                             </Card.Body>
                         </Card>
@@ -150,7 +137,7 @@ function TopUpForum(props) {
                     <Col xs={'3'} md={'2'} className={'mx-3'}>
                         <Card className={ amount === 10 ? selectedCard : cardClass }
                          onClick={ () => { SelectAmount(10) }}>
-                            <Card.Body className={'p-4 text-center'}>
+                            <Card.Body className={'px-0 text-center'}>
                                 <div className={'h4'}>10</div>
                             </Card.Body>
                         </Card>
@@ -158,7 +145,7 @@ function TopUpForum(props) {
                     <Col xs={'3'} md={'2'} className={'ms-3'}>
                         <Card className={ amount === 15 ? selectedCard : cardClass }
                         onClick={ () => { SelectAmount(15) }} >
-                            <Card.Body className={'p-4 text-center'}>
+                            <Card.Body className={'px-0 text-center'}>
                                 <div className={'h4'}>15</div>
                             </Card.Body>
                         </Card>

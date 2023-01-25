@@ -1,11 +1,12 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import { Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
+import { MdStars } from 'react-icons/md';
 import { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { getFoods} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {BackArrow} from "./HomeComponent";
+import API from "../API";
 
 function OrderFirstPhase(props) {
 
@@ -19,7 +20,7 @@ function OrderFirstPhase(props) {
     const backgroundColorClass = 'bg-main';
 
     useEffect(() => {
-        getFoods(1).then((foodsAPI) => {
+        API.getFoods(1).then((foodsAPI) => {
             setFoods(foodsAPI);
             setLoadFetchProcess(false);
         }).catch((error) => {
@@ -34,7 +35,7 @@ function OrderFirstPhase(props) {
 
     let Next = () => {
 
-        if ( chosenDish.trim() === '' )
+        if ( chosenDish === '' )
             setConfirmModal(true)
         else
             navigate('/order/second');
@@ -87,31 +88,35 @@ function OrderFirstPhase(props) {
                         <p className={'text-center'}> choose only one item or skip </p>
                     </Col>
                 </Row>
-                {
-                    foods.map( (food) => {
-                        return <OrderFoodCard food={food}
-                                              chosenDish={chosenDish}
-                                              selectCard={selectCard}
-                                              key={food.id}/>
-                    } )
-                }
+                <Row className={'justify-content-center'}>
+                    <Col md={8}>
+                        {
+                            foods.map( (food) => {
+                                return <OrderFoodCard food={food}
+                                                      chosenDish={chosenDish}
+                                                      selectCard={selectCard}
+                                                      key={food.id}/>
+                            } )
+                        }
+                    </Col>
+                </Row>
                 <Row className={'justify-content-center my-4'}>
                     <Col xs={2}>
                         <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Next</Button>
                     </Col>
                 </Row>
                 <Modal show={ confirmModal } onHide={ handleClose }>
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton className={'bg-main'}>
                         <Modal.Title>Confirm Modal</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>You have not chosen any food. If you want to skip this part press
-                        <b> Continue</b>
+                    <Modal.Body>You have not chosen any food. If you want to skip first course press
+                        <b> Continue.</b>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={ handleClose }>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={ () => { Continue() } }>
+                        <Button variant="primary" className={'bg-main'} onClick={ () => { Continue() } }>
                             Continue
                         </Button>
                     </Modal.Footer>
@@ -134,7 +139,7 @@ export function OrderFoodCard(props) {
             <Card.Body className={'p-2'}>
                 <Row className={'align-items-center text-center'}>
                     <Col>
-                        <h4>{ props.food.title }</h4>
+                        <h4> { props.food.favorite ? <MdStars /> : '' } { props.food.title }</h4>
                     </Col>
                     <Col>
                         <img src={ props.food.url }

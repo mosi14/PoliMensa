@@ -31,18 +31,19 @@ function Home(props) {
     return (
         <>
             <TopNavbar user={props.user}/>
-                <Container>
+                <Container className={'main-container'}>
                 { alert }
                 <h3 className={'text-center my-3'}>Hi { props.user.name }</h3>
                 <Row>
-                    <Col xs={{
+                    <Col md={{
                         span: 8,
                         offset: 2
-                    }}>
+                    }}
+                    xs={12}>
                         <Card className={'bg-light py-1'}>
                             <Card.Body >
                                 <Row>
-                                    <Col>
+                                    <Col xs={12} md={6}>
                                         <Row>
                                             <Col>
                                                 <Card className={'h-100'}>
@@ -82,8 +83,8 @@ function Home(props) {
                                             </Col>
                                         </Row>
                                     </Col>
-                                    <Col>
-                                        <Card className={'h-100'}>
+                                    <Col xs={12} md={6}>
+                                        <Card className={'h-100 xs-mt'}>
                                             <Card.Body className={'text-center'}>
                                                 <div className={'d-flex align-items-center h-100'}>
                                                     <div className={'flex-grow-1'}>
@@ -115,7 +116,7 @@ function Home(props) {
                     <Col sm={4} className={'text-center'}>
                         <Button className={'bg-main'} size="lg" onClick={ () => ChangeTime() }>See details</Button>
                     </Col>
-                    <Col sm={4} className={'text-center'}>
+                    <Col sm={4} className={'text-center xs-mt'}>
                         <Button className={'bg-main'} size="lg" onClick={ () => ChangeFood() }>Meal</Button>
                     </Col>
                 </Row>

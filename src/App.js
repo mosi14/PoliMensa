@@ -20,6 +20,7 @@ import GlobalSpinner from './components/SpinnerComponent';
 import { getUser } from './Firebase';
 import EditForm from './components/EditForm';
 import QueueNumber from "./components/QueueNumber";
+import API from "./API";
 
 function App() {
 
@@ -31,14 +32,12 @@ function App() {
   useEffect(() => {
 
     // const userId = localStorage.getItem('user');
-    const userId = 'OqiNtPMpcMjZrd7Oels9';
+    const userId = 1;
 
     if ( user === null ) {
-      getUser(userId).then( (result) => {
+      API.getUser(userId).then( (result) => {
         if (result !== undefined) {
-          result.id = userId;
           setUser(result);
-          console.log(result);
 
           if ( Object.keys(result.order).length === 0 ) {
             setOrder(null)

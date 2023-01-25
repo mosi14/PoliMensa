@@ -1,10 +1,11 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import { Card, Col, Container, Row} from "react-bootstrap";
 import { useNavigate } from "react-router-dom"
-import {MdOutlineArrowBackIosNew} from "react-icons/md";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import {BackArrow} from "./HomeComponent";
+import GlobalSpinner from "./SpinnerComponent";
+import API from "../API";
 
 function Menu(props) {
 
@@ -12,6 +13,9 @@ function Menu(props) {
 
     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    const [foods, setFoods] = useState([]);
+    const [loadFetchProcess, setLoadFetchProcess] = useState(false);
 
     let daysArray = [];
 
@@ -35,6 +39,16 @@ function Menu(props) {
             dayOfWeek: daysOfWeek[ current.day() ],
         })
     }
+
+    useEffect(function () {
+        API.getFoods(null).then((foodsAPI) => {
+            setFoods(foodsAPI);
+            setLoadFetchProcess(false);
+        }).catch((error) => {
+            setLoadFetchProcess(true);
+            console.log(error);
+        });
+    })
 
     const [chosenTime, setChosenTime] = useState('time' + today);
     const [headText, setHeadText] = useState('Suggested foods for today.');
@@ -66,8 +80,12 @@ function Menu(props) {
         setChosenTime(time);
     }
 
-    return (
-        <>
+    let content
+
+    if ( loadFetchProcess ) {
+        content = <><GlobalSpinner/></>
+    } else {
+        content = <>
             <TopNavbar user={props.user}/>
             <Container>
                 <div className={'mt-1'}>
@@ -86,73 +104,70 @@ function Menu(props) {
                         daysArray.map( (day, index) => {
 
                             return <Col key={index}><DayCard day={day.day}
-                                                 month={day.month}
-                                                 dayOfWeek={day.dayOfWeek}
-                                                 ChooseTime={ChooseTime}
-                                                 chosenTime={chosenTime}
-                                                 /></Col>
+                                                             month={day.month}
+                                                             dayOfWeek={day.dayOfWeek}
+                                                             ChooseTime={ChooseTime}
+                                                             chosenTime={chosenTime}
+                            /></Col>
 
                         } )
                     }
                 </Row>
                 <h5 className={'mt-2'}>First Course</h5>
                 <div className={'d-flex flex-row flex-nowrap overflow-auto'}>
-                        <FoodCardComponent
-                            src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
-                            text={'Pasta/Riso in Bianco'}
-                        />
-                        <FoodCardComponent
-                            src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                            text={'Pasta Carbonara'}
-                        />
-                        <FoodCardComponent food={'suggested'}
-                                           src={'https://statics.cucchiaio.it/content/cucchiaio/it/ricette/2019/12/spaghetti-al-pomodoro/jcr:content/header-par/image-single.img10.jpg/1576681061599.jpg'}
-                                           text={'Pasta  Pomodoro'}
-                        />
-                        <FoodCardComponent
-                            src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                            text={'Pasta Carbonara'}
-                        />
-                        <FoodCardComponent food={'selected'}
-                                           src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                                           text={'Pasta Carbonara'}
-                        />
-            </div>
+                    {
+                        foods.map( ( food ) => {
+
+                            if (food.type === 1) {
+                                return <FoodCardComponent
+                                    key={food.id}
+                                    src={ food.url }
+                                    text={ food.title }
+                                    food={food}
+                                />
+                            }
+                        })
+                    }
+                </div>
 
                 <h5 className={'mt-2'}>Second Course</h5>
                 <div className={'d-flex flex-row flex-nowrap overflow-auto'}>
-                    <FoodCardComponent
-                        src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
-                        text={'Pasta Carbonara'}
-                    />
-                    <FoodCardComponent
-                        src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                        text={'Pasta Carbonara'}
-                    />
-                    <FoodCardComponent food={'selected'}
-                                       src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                                       text={'Pasta Carbonara'}
-                    />
+                    {
+                        foods.map( ( food ) => {
+
+                            if (food.type === 2) {
+                                return <FoodCardComponent
+                                    key={food.id}
+                                    src={ food.url }
+                                    text={ food.title }
+                                    food={food}
+                                />
+                            }
+                        })
+                    }
                 </div>
                 <h5 className={'mt-2'}>Side Dish</h5>
                 <div className={'d-flex flex-row flex-nowrap mb-5 overflow-auto'}>
-                    <FoodCardComponent
-                        src={"https://media.istockphoto.com/id/1142391463/photo/pasta-carbonara.jpg?s=612x612&w=0&k=20&c=7gO9mReNFzY10qsmu_X4_LZ45-UcVPtzpHF-DOFp6Cc="}
-                        text={'Pasta Carbonara'}
-                    />
-                    <FoodCardComponent
-                        src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                        text={'Pasta Carbonara'}
-                    />
-                    <FoodCardComponent food={'selected'}
-                                       src={'https://staticfanpage.akamaized.net/wp-content/uploads/sites/21/2022/11/il-riso-in-bianco.jpg'}
-                                       text={'Pasta Carbonara'}
-                    />
+                    {
+                        foods.map( ( food ) => {
+
+                            if (food.type === 3) {
+                                return <FoodCardComponent
+                                    key={food.id}
+                                    src={ food.url }
+                                    text={ food.title }
+                                    food={food}
+                                />
+                            }
+                        })
+                    }
                 </div>
             </Container>
             <NavbarBottom />
         </>
-    );
+    }
+
+    return (content);
 }
 
 function FoodCardComponent(props) {

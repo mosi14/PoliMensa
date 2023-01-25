@@ -7,6 +7,7 @@ import {BackArrow} from "./HomeComponent";
 import {getTimes, getUser, saveOrder} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {IoWarningOutline} from "react-icons/io5";
+import API from "../API";
 
 function OrderChooseTime(props) {
 
@@ -26,7 +27,7 @@ function OrderChooseTime(props) {
     }
 
     useState(function () {
-        getTimes(1).then((timesAPI) => {
+        API.getTimes(1).then((timesAPI) => {
             setTimes(timesAPI);
             setLoadFetchProcess(false);
         }).catch((error) => {
@@ -39,7 +40,7 @@ function OrderChooseTime(props) {
         if (chosenTime === null)
             setShowAlert(true);
         else {
-            saveOrder(props.user, chosenTime)
+            API.saveOrder(props.user, chosenTime)
                 .then( (response) => {
 
                     props.setUser(null);
@@ -52,7 +53,7 @@ function OrderChooseTime(props) {
     }
 
     let Back = () => {
-        navigate('/order/third');
+        navigate('/');
     }
 
     let alert = '';
@@ -75,7 +76,7 @@ function OrderChooseTime(props) {
             <Container className={'main-container'}>
                 <Row>
                     <Col xs={1}>
-                        <BackArrow back={ () => Back() }/>
+                        <BackArrow Back={ () => Back() }/>
                     </Col>
                     <Col xs={10}>
                         { alert }
