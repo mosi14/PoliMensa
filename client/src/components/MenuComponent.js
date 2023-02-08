@@ -64,14 +64,6 @@ function Menu(props) {
         navigate('/');
     }
 
-    let GoPaymentMethod = () => {
-        navigate('/top-up/methods');
-    }
-
-    let GoLastTransactions = () => {
-        navigate('/top-up/last-transactions');
-    }
-
     let ChooseTime = (time) => {
         if ( time === 'time' + today )
             setHeadText('Suggested foods for today.')
@@ -88,7 +80,7 @@ function Menu(props) {
     } else {
         content = <>
             <TopNavbar user={props.user}/>
-            <Container>
+            <Container className={'main-container'}>
                 <div className={'mt-1'}>
                     <BackArrow Back={ () => Back()}/>
                 </div>

@@ -17,7 +17,6 @@ import UserProfile from './components/UserProfile';
 import Menu from "./components/MenuComponent";
 import Welcome from "./components/WelcomeComponent";
 import GlobalSpinner from './components/SpinnerComponent';
-import { getUser } from './Firebase';
 import EditForm from './components/EditForm';
 import QueueNumber from "./components/QueueNumber";
 import API from "./API";
@@ -28,8 +27,11 @@ function App() {
   const [loadUserProcess, setLoadUserProcess] = useState(true);
   const [order, setOrder] = useState(null);
   const [payed, setPayed] = useState(false);
+  const [isUserEdited, setIsUserEdited] = useState(false);
 
   useEffect(() => {
+
+    document.title = 'PoliMensa';
 
     // const userId = localStorage.getItem('user');
     const userId = 1;
@@ -99,8 +101,8 @@ function App() {
           <Route path="/top-up/last-transactions"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <LastTransaction user={user}/> : <Welcome user={user}/> )}/>
           <Route path="/profile"
-                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <UserProfile user={user}/> : <Welcome user={user}/> )}/>
-          <Route path="/profile/edit" element={<EditForm user={user}/>}/>
+                 element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <UserProfile user={user} isUserEdited={isUserEdited}/> : <GlobalSpinner/> )}/>
+          <Route path="/profile/edit" element={ user ? <EditForm user={user} setUser={setUser} setIsUserEdited={setIsUserEdited}/> : <GlobalSpinner/>}/>
           <Route path="/menu"
                  element={ loadUserProcess ? <GlobalSpinner/> : ( user ? <Menu user={user}/> : <Welcome user={user}/> )}/>
         </Routes>

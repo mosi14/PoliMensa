@@ -18,6 +18,14 @@ function TopUpForum(props) {
     const [amount, setAmount] = useState(0);
     const [showAlert, setShowAlert] = useState(false);
 
+    const [cardNumberError, setCardNumberError] = useState(false);
+    const [nameError, setNameError] = useState(false);
+    const [surnameError, setSurnameError] = useState(false);
+    const [cvcError, setCvcError] = useState(false);
+    const [expireDateError, setExpireDateError] = useState(false);
+    const [amountError, setAmountError] = useState(false);
+
+    const borderError = 'border border-danger';
 
     let Back = () => {
         navigate('/top-up/');
@@ -71,11 +79,7 @@ function TopUpForum(props) {
 
     let alert = '';
 
-    let alertShow = () =>{
-
-        setShowAlert(true);
-       
-    }
+    const errorTime = 3000;
 
     if (showAlert) {
         alert =
@@ -91,17 +95,61 @@ function TopUpForum(props) {
 
     let PaymentConfirm = () => {
 
-        API.pay(props.user, amount).then( () => {
-            props.setUser(null);
-        }).catch((error) => {
-            console.log(error);
-        })
+        if (amount === 0 || amount == '') {
+            setAmountError(true);
 
-        props.setPayed(true);
-        setTimeout(function () {
-            props.setPayed(false);
-        }, 3000)
-        navigate('/');
+            setTimeout(function () {
+                setAmountError(false);
+            }, errorTime);
+
+        } else if (cardNumber.trim() === '' || cardNumber.trim().length < 16) {
+            setCardNumberError(true);
+
+            setTimeout(function () {
+                setCardNumberError(false);
+            }, errorTime);
+
+        } else if (name.trim() === '') {
+            setNameError(true);
+
+            setTimeout(function () {
+                setNameError(false);
+            }, errorTime);
+
+        } else if (surname.trim() === '') {
+            setSurnameError(true);
+
+            setTimeout(function () {
+                setSurnameError(false);
+            }, errorTime);
+
+        } else if (cvc.trim() === '' || cvc.trim().length < 3) {
+            setCvcError(true);
+
+            setTimeout(function () {
+                setCvcError(false);
+            }, errorTime);
+
+        } else if (expireDate.trim() === '' || expireDate.trim().length < 5) {
+            setExpireDateError(true);
+
+            setTimeout(function () {
+                setExpireDateError(false);
+            }, errorTime);
+        } else {
+            API.pay(props.user, amount).then( () => {
+                props.setUser(null);
+            }).catch((error) => {
+                console.log(error);
+            })
+
+            props.setPayed(true);
+
+            setTimeout(function () {
+                props.setPayed(false);
+            }, 3000)
+            navigate('/');
+        }
     }
 
     const cardClass = 'bg-light align-items-center selectable-card';
@@ -111,11 +159,7 @@ function TopUpForum(props) {
         <>
             <TopNavbar user={props.user}/>
             <Container
-                className={'main-container'}
-            //     style={{
-            //     height: '90vh'
-            // }}
-            >
+                className={'main-container'}>
                 <Row>
                     <Col xs={1}>
                         <BackArrow Back={ () => Back() }/>
@@ -160,7 +204,11 @@ function TopUpForum(props) {
                         <Form  >
                             <Form.Group >
                                 <Form.Label className='m-auto'>Enter the amount of money</Form.Label>
-                                <Form.Control className='label-field' type='text'  placeholder='Enter the amount' value={amount} onChange={(ev)=> {setAmount(ev.target.value)}} />
+                                <Form.Control className={ amountError ? borderError : '' }
+                                              type='text'
+                                              placeholder='Enter the amount'
+                                              value={amount}
+                                              onChange={(ev)=> {setAmount(ev.target.value)}} />
                             </Form.Group>
                         </Form>
                     </Col>
@@ -197,6 +245,7 @@ function TopUpForum(props) {
                                           minLength={19}
                                           maxLength={19}
                                           value={cardNumber}
+                                          className={ cardNumberError ? borderError : ''}
                             onInput={ event => maskCardNumber(event, event.target.value, event.target.selectionStart) }/>
                         </Form.Group>
                     </Col>
@@ -211,6 +260,7 @@ function TopUpForum(props) {
                                                   minLength={20}
                                                   maxLength={20}
                                                   value={name}
+                                                  className={ nameError ? borderError : ''}
                                                   onInput={ event => setName(event.target.value) }/>
                                 </Form.Group>
                             </Col>
@@ -221,6 +271,7 @@ function TopUpForum(props) {
                                                   minLength={20}
                                                   maxLength={20}
                                                   value={surname}
+                                                  className={ surnameError ? borderError : '' }
                                                   onInput={ event => setSurname(event.target.value) }/>
                                 </Form.Group>
                             </Col>
@@ -237,6 +288,7 @@ function TopUpForum(props) {
                                                   minLength={3}
                                                   maxLength={3}
                                                   value={cvc}
+                                                  className={ cvcError ? borderError : '' }
                                                   onInput={ event => setCvc(event.target.value) }/>
                                 </Form.Group>
                             </Col>
@@ -247,6 +299,7 @@ function TopUpForum(props) {
                                                   minLength={5}
                                                   maxLength={5}
                                                   value={expireDate}
+                                                  className={ expireDateError ? borderError : '' }
                                                   onInput={ event => maskExpireDate(event, event.target.value, event.target.selectionStart) }/>
                                 </Form.Group>
                             </Col>

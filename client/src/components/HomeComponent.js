@@ -5,10 +5,16 @@ import {IoChevronBackCircleSharp, IoFastFood} from "react-icons/io5";
 import {IoIosPeople} from "react-icons/io";
 import {FcOvertime} from "react-icons/fc";
 import {BsEmojiSmile} from "react-icons/bs";
+import {useEffect, useState} from "react";
+import API from "../API";
+import GlobalSpinner from "./SpinnerComponent";
 
 function Home(props) {
 
     const navigate = useNavigate();
+
+    const [loadFetchProcess, setLoadFetchProcess] = useState(true);
+    const [foods, setFoods] = useState([]);
 
     let ChangeTime = () => {
         navigate('/order/choose-time/queue-number');
@@ -17,6 +23,32 @@ function Home(props) {
     let ChangeFood = () => {
         navigate('/order/first');
     }
+
+    useEffect( () => {
+        API.getFoods(null).then((foodsAPI) => {
+
+            const firstDish = localStorage.getItem('firstDish');
+            const secondDish = localStorage.getItem('secondDish');
+            const thirdDish = localStorage.getItem('thirdDish');
+
+            let chosenFoods = [];
+
+            for (let key in foodsAPI) {
+
+                const food = foodsAPI[key];
+
+                if (firstDish == food.id || secondDish == food.id || thirdDish == food.id ) {
+                    chosenFoods.push(food.title)
+                }
+
+            }
+
+            setFoods(chosenFoods);
+            setLoadFetchProcess(false);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }, []);
 
     let alert = '';
 
@@ -28,10 +60,40 @@ function Home(props) {
             </Alert>
     }
 
-    return (
-        <>
+    let foodText;
+
+    const firstDish = localStorage.getItem('firstDish');
+    const secondDish = localStorage.getItem('secondDish');
+    const thirdDish = localStorage.getItem('thirdDish');
+
+    if ( firstDish !== 'null' || secondDish !== 'null' || thirdDish !== 'null' ) {
+        foodText = 'Your meals';
+    } else {
+        foodText = 'Suggested foods';
+    }
+
+    let suggestedFoods = <>
+        <div>
+            <span>1)</span>
+            <span>Chickpea Curry</span>
+        </div>
+        <div>
+            <span>2)</span>
+            <span>Greek Quinoa Salad</span>
+        </div>
+        <div>
+            <span>3)</span>
+            <span>Cabbage Soup</span>
+        </div></>
+
+    let content;
+
+    if (loadFetchProcess) {
+        content = <><GlobalSpinner/></>
+    } else {
+        content = <>
             <TopNavbar user={props.user}/>
-                <Container className={'main-container'}>
+            <Container className={'main-container'}>
                 { alert }
                 <h3 className={'text-center my-3'}>Hi { props.user.name } { props.user.surname }</h3>
                 <Row>
@@ -39,7 +101,7 @@ function Home(props) {
                         span: 8,
                         offset: 2
                     }}
-                    xs={12}>
+                         xs={12}>
                         <Card className={'bg-light py-1'}>
                             <Card.Body >
                                 <Row>
@@ -89,19 +151,18 @@ function Home(props) {
                                                 <div className={'d-flex align-items-center h-100'}>
                                                     <div className={'flex-grow-1'}>
                                                         <IoFastFood size={35}/>
-                                                        <h5>Your meals</h5>
-                                                        <div>
-                                                            <span>1)</span>
-                                                            <span>Chickpea Curry</span>
-                                                        </div>
-                                                        <div>
-                                                            <span>2)</span>
-                                                            <span>Greek Quinoa Salad</span>
-                                                        </div>
-                                                        <div>
-                                                            <span>3)</span>
-                                                            <span>Cabbage Soup</span>
-                                                        </div>
+                                                        <h5>{ foodText }</h5>
+                                                        {
+                                                            foods.length > 0 ?
+                                                                foods.map( (food, index) => {
+                                                                    return <div key={index}>
+                                                                                <span>{ index + 1 })</span>
+                                                                                <span>{ food }</span>
+                                                                            </div>
+                                                                })
+                                                                :
+                                                                suggestedFoods
+                                                        }
                                                     </div>
                                                 </div>
                                             </Card.Body>
@@ -123,7 +184,10 @@ function Home(props) {
             </Container>
             <NavbarBottom />
         </>
-    );
+
+    }
+
+    return (content);
 }
 
 export function BackArrow(props) {

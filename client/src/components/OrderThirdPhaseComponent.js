@@ -22,6 +22,7 @@ function OrderThirdPhase(props) {
 
     useEffect(() => {
         sessionStorage.setItem('thirdDish', null);
+        localStorage.setItem('thirdDish', null);
 
         API.getFoods(3).then((foodsAPI) => {
             setFoods(foodsAPI);
@@ -35,6 +36,8 @@ function OrderThirdPhase(props) {
         window.scrollTo(0, 100000000)
 
         sessionStorage.setItem('thirdDish', id);
+        localStorage.setItem('thirdDish', id);
+
         setChosenDish(id);
     }
 

@@ -1,28 +1,16 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
 import {Button, Card, Col, Container, Modal, Row} from "react-bootstrap";
-import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom"
-import {AiOutlinePlus} from "react-icons/ai";
 import {BackArrow} from "./HomeComponent";
 import API from "../API";
 import GlobalSpinner from "./SpinnerComponent";
-import {OrderFoodCard} from "./OrderFirstPhaseComponent";
 
 function OrderSummary(props) {
 
-    const dish1 = 'dish-1';
-    const dish2 = 'dish-2';
-    const dish3 = 'dish-3';
-    const dish4 = 'dish-4';
-
     const navigate = useNavigate();
 
-    const [chosenDish, setChosenDish] = useState('');
-
-    const backgroundColorClass = 'bg-primary';
     const card = 'bg-light my-2';
-    const selectedCard = 'my-2 selectable-card border border-primary';
     const [confirmModal, setConfirmModal] = useState(false);
 
     let handleClose = () => {
@@ -34,19 +22,18 @@ function OrderSummary(props) {
     }
 
     const [foods, setFoods] = useState([]);
-    const [loadFetchProcess, setLoadFetchProcess] = useState(false);
+    const [loadFetchProcess, setLoadFetchProcess] = useState(true);
 
     useEffect( () => {
         API.getFoods(null).then((foodsAPI) => {
             setFoods(foodsAPI);
             setLoadFetchProcess(false);
         }).catch((error) => {
-            setLoadFetchProcess(true);
             console.log(error);
         });
     }, []);
 
-    let GoHome = () => {
+    let Confirm = () => {
         navigate('/');
     }
 
@@ -85,7 +72,7 @@ function OrderSummary(props) {
 
                                 if (food.id == firstDish || food.id == secondDish || food.id == thirdDish) {
                                     isChosen = true;
-                                    return <Card className={ chosenDish === dish1 ? selectedCard : card }>
+                                    return <Card className={ card } key={food.id}>
                                         <Card.Body className={'p-2'}>
                                             <Row className={'align-items-center text-center'}>
                                                 <Col>
@@ -111,8 +98,8 @@ function OrderSummary(props) {
                     <Col sm={3} className={'text-center'}>
                         <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Change</Button>
                     </Col>
-                    <Col sm={3} className={'text-center'}>
-                        <Button size="lg" className={'bg-main'} onClick={ () => GoHome() }>Confirm</Button>
+                    <Col sm={3} className={'text-center xs-mt'}>
+                        <Button size="lg" className={'bg-main'} onClick={ () => Confirm() }>Confirm</Button>
                     </Col>
                 </Row>
             </Container>

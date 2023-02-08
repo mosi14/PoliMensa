@@ -15,6 +15,11 @@ function QueueNumber(props) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     let Cancel = () => {
+
+        localStorage.setItem('firstDish', null);
+        localStorage.setItem('secondDish', null);
+        localStorage.setItem('thirdDish', null);
+
         API.cancelOrder(props.user.id)
             .then( (response) => {
                 props.setUser(null);

@@ -1,7 +1,8 @@
 
 export default class API {
 
-    static rootApiUrl = 'http://localhost:3001/api/';
+    static rootApiUrl = 'http://34.205.190.185:5000/api/';
+    // static rootApiUrl = 'http://localhost:3001/api/';
 
     static getUser = async (userId) => {
 
@@ -97,6 +98,27 @@ export default class API {
             body: JSON.stringify({
                 userId: user.id,
                 amount: amount
+            })
+        });
+
+        if (response.ok) {
+            return true;
+        } else {
+            throw false;
+        }
+    };
+
+    static editUser = async (user, email, phone) => {
+
+        const response = await fetch(this.rootApiUrl + 'users/edit', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: user.id,
+                email: email,
+                phone: phone,
             })
         });
 

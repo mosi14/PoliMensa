@@ -21,6 +21,7 @@ function OrderSecondPhase(props) {
 
     useEffect(() => {
         sessionStorage.setItem('secondDish', null);
+        localStorage.setItem('secondDish', null);
 
         API.getFoods(2).then((foodsAPI) => {
             setFoods(foodsAPI);
@@ -34,6 +35,8 @@ function OrderSecondPhase(props) {
         window.scrollTo(0, 100000000)
 
         sessionStorage.setItem('secondDish', id);
+        localStorage.setItem('secondDish', id);
+
         setChosenDish(id);
     }
 
@@ -104,7 +107,7 @@ function OrderSecondPhase(props) {
                     </Col>
                 </Row>
                 <Row className={'justify-content-center my-4'}>
-                    <Col xs={2}>
+                    <Col xs={3} md={2}>
                         <Button size="lg" className={'bg-main'} onClick={ () => Next() }>Next</Button>
                     </Col>
                 </Row>
