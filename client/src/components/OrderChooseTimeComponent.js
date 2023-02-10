@@ -1,12 +1,12 @@
 import NavbarBottom, {TopNavbar} from './NavbarComponent';
-import {Alert, Button, Card, Col, Container, Row} from "react-bootstrap";
+import {Alert, Button, Col, Container, Row} from "react-bootstrap";
 import { useState} from "react";
 import { useNavigate } from "react-router-dom"
 import {SelectableCard} from "./CardsComponents";
 import {BackArrow} from "./HomeComponent";
-import {getTimes, getUser, saveOrder} from "../Firebase";
 import GlobalSpinner from "./SpinnerComponent";
 import {IoWarningOutline} from "react-icons/io5";
+import {MdAccessTime} from "react-icons/md";
 import API from "../API";
 
 function OrderChooseTime(props) {
@@ -85,6 +85,11 @@ function OrderChooseTime(props) {
                 <Row>
                     <Col>
                         <h2 className={'text-center'}>Choose Your Time</h2>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h5 className={'text-center'}><MdAccessTime size={30}/> - Expected time</h5>
                     </Col>
                 </Row>
                 <Row>

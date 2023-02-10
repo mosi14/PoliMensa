@@ -38,6 +38,7 @@ function App() {
 
     if ( user === null ) {
       API.getUser(userId).then( (result) => {
+        console.log(result)
         if (result !== undefined) {
           setUser(result);
 

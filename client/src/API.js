@@ -1,8 +1,8 @@
 
 export default class API {
 
-    static rootApiUrl = 'http://34.205.190.185:5000/api/';
-    // static rootApiUrl = 'http://localhost:3001/api/';
+    // static rootApiUrl = 'http://34.205.190.185:5000/api/';
+    static rootApiUrl = 'http://localhost:3001/api/';
 
     static getUser = async (userId) => {
 
